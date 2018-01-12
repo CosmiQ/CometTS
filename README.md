@@ -1,4 +1,4 @@
-Comet Time Series (ComeTS) Visualizer
+Comet Time Series (CometTS) Visualizer
 ===================
 ![Niamey Time Series Plot](ExamplePlots/Niamey.png)
 ## About
