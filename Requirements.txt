@@ -1,0 +1,17 @@
+#Requirements
+numpy
+pandas
+gdal
+geopandas
+rasterio
+shapely
+fiona
+affine
+rasterstats
+matplotlib
+seaborn
+jupyter
+ipywidgets
+IPython
+tqdm
+scipy
