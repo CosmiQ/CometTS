@@ -103,7 +103,7 @@ The script will then run through and calculate the statistical central tendencie
 
 #### Agadez, Niger
 ![Agadez Time Series Plot](ExamplePlots/Agadez.png)
-Seasonal variation in brightness that likely indicates seasonal migrations and population fluctuations in central Niger (Agadez), Africa.
+Seasonal variation in brightness that likely indicates seasonal migrations and population fluctuations in central Niger, Africa.
 
 
 #### Suruc Refugee Camp, Turkey
