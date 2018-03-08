@@ -1,5 +1,5 @@
 #Requirements
-numpy
+numpy>=1.13.3
 pandas
 gdal
 geopandas
