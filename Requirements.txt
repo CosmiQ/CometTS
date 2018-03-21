@@ -3,7 +3,7 @@ numpy>=1.13.3
 pandas
 gdal
 geopandas
-rasterio
+rasterio>=1.0a12
 shapely
 fiona
 affine
