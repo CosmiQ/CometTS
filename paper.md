@@ -41,7 +41,7 @@ We acknowledge contributions from Dylan George, Dave Lindenbaum, and Ryan Lewis
 
 # References
 
-Christopher E. Holden. (2015). TSTools: Linking time and space visualization for remotely sensed timeseries. Zenodo. 10.5281/zenodo.34182
+Christopher E. Holden. (2017). TSTools: v1.2.0. Zenodo. 10.5281/zenodo.267110
 
 Jacob Shermeyer. (2018). Comet Time Series (CometTS) Visualizer. Zenodo. 10.5281/zenodo.1324419
 
