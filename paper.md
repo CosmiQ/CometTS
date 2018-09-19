@@ -19,7 +19,7 @@ bibliography: paper.bib
 
 # Summary
 
-We have developed a tool that we call Comet Time Series (CometTS) that facilitates analysis and visualization of a time series of satellite imagery in order to enable population estimation research, change detection, or natural disaster monitoring using a range of data types. ``CometTS`` provides a partially automated approach for analyzing a time series of satellite imagery in any user defined area of interest. The tool calculates relevant statistical quantities (e.g., measures of central tendency and variation), and visualizes their changes over time (Figure 1 and Figure 2). We believe this work is novel, as presently we are not aware of any such open-source tools to evaluate and leverage a time series of satellite or potentially airborne imagery from user drawn polygons. Furthermore, this tool makes time series satellite imagery more accessible to the data science community and removes a GIS tool as a requirement for working with these data. The tool requires only a web browser, Python®, and dependent packages to function. Other time series tools like TSTools[@Holden:2017] are powerful but require a GIS interface and can only be used to analyze individual pixels rather than larger areas of interest.
+We have developed a tool that we call Comet Time Series (CometTS) that facilitates analysis and visualization of a time series of satellite imagery in order to enable population estimation research, land use change detection, or natural disaster monitoring using a range of data types. ``CometTS`` provides a partially automated approach for analyzing a time series of satellite imagery in any user defined area of interest. The tool calculates relevant statistical quantities (e.g., measures of central tendency and variation), and visualizes their changes over time (Figure 1 and Figure 2). We believe this work is novel, as presently we are not aware of any such open-source tools to evaluate and leverage a time series of satellite or potentially airborne imagery from user drawn polygons. Furthermore, this tool makes time series satellite imagery more accessible to the data science community and removes a GIS tool as a requirement for working with these data. The tool requires only a web browser, Python®, and dependent packages to function. Other time series tools like TSTools[@Holden:2017] are powerful but require a GIS interface and can only be used to analyze individual pixels rather than larger areas of interest.
 
 ![Figure 1](https://raw.githubusercontent.com/CosmiQ/CometTS/master/ExamplePlots/Workflow.png)
 
@@ -37,11 +37,7 @@ The tool ingests two key components: (1) time series of overhead imagery and (2)
 
 # Acknowledgements
 
-We acknowledge contributions from Dylan George, Dave Lindenbaum, and Ryan Lewis
+We acknowledge contributions from Dylan George, Dave Lindenbaum, Ryan Lewis, and Adam Van Etten
 
 # References
-
-Christopher E. Holden. (2017). TSTools: v1.2.0. Zenodo. 10.5281/zenodo.267110
-
-Jacob Shermeyer. (2018). Comet Time Series (CometTS) Visualizer. Zenodo. 10.5281/zenodo.1324419
 
