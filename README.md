@@ -123,5 +123,5 @@ A visualization of the Normalized Difference Vegetation Index (NDVI) in a field 
 
 
 ## Contribute or debug?
-Interested in proposing a change, fixing a bug, or asking for help? Check out the [contributions]https://github.com/CosmiQ/CometTS/blob/master/CONTRIBUTING.MD guidance.
+Interested in proposing a change, fixing a bug, or asking for help? Check out the [contributions] https://github.com/CosmiQ/CometTS/blob/master/CONTRIBUTING.MD guidance.
 
