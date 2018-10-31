@@ -8,6 +8,7 @@ The first dataset we tested this tool with was [Suomii NPP VIIRS Nightlights Mon
 
 Note that these data are incredibly large in size and may take considerable time (e.g., over a day) to download the whole dataset for the entire earth (i.e., ~1TB of data). Another option is downloading just 1/6th of the data for the earth.  Uncompressed, this will be about 200GB.
 
+
 ## Installation
 Python 2.7+, GDAL, and Jupyter Notebooks are the baseline requirements. The other requirements are listed in Requirements.txt and are easily installable via pip or conda.
 
@@ -120,8 +121,7 @@ Brightness declines (i.e., putative population decline) as a result of Syrian Ci
 ![Allepo Time Series Plot](ExamplePlots/NDVI_3.png)
 A visualization of the Normalized Difference Vegetation Index (NDVI) in a field north of Houston using a time-series of Landsat imagery.
 
-  
 
-
-
+## Contribute or debug?
+Interested in proposing a change, fixing a bug, or asking for help? Check out the [contributions]https://github.com/CosmiQ/CometTS/blob/master/CONTRIBUTING.MD guidance.
 
