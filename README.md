@@ -56,6 +56,12 @@ If you are using non-VIIRS data, this pattern will remain consistent regardless.
  
 ## Workflow Example
 
+Run this command in a terminal before starting jupyter notebooks, you should only have to do this once:
+
+```
+jupyter nbextension enable --py widgetsnbextension
+```
+
 ### Create Areas of Interest
 After the raster data are organized appropriately, you are ready to begin a workflow. The secondary input is simply a polygon vector file which will direct your analysis and calculate the relevant statistics and plots. Polygons can be created in QGIS, the GIS software of your choice, or can be done online. One such way is going to  http://geojson.io/ and using the tool.
 
