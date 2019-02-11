@@ -27,7 +27,7 @@ from fnmatch import fnmatch
 
 
 def Process_imagery(Path_dir, zonalpoly,NoDataValue,mask_value,maskit=True):
-    print zonalpoly
+    print(zonalpoly)
     gdf=gpd.read_file(zonalpoly)
     count=0
     if maskit==True:
@@ -44,14 +44,14 @@ def Process_imagery(Path_dir, zonalpoly,NoDataValue,mask_value,maskit=True):
             gdf2['observations']=gdf3['median']
             
     #Save CSV
-    print "Producing csv output..."
+    print("Producing csv output...")
     z_simple=zonalpoly.split('/')
     z_simple=z_simple[-1].split('.')
     z_simple=z_simple[0]
     Path_out=os.path.dirname(os.path.abspath(Path_dir))
     
     output=os.path.join(Path_out, z_simple + '_FullStats.csv')
-    print "CSV statistics saved here: ",output
+    print("CSV statistics saved here: ",output)
     gdf2.to_csv(output)
     for item in gdf2['ID'].unique():
         gdf3=gdf2[(gdf2.ID == item)]
@@ -77,7 +77,7 @@ def Do_Zonal_Stats(Path_dir,gdf,NoDataValue,mask_value,maskit=True):
     data=pd.read_csv(Path_dir)
     data=data.sort_values(['date'])
     zonelist=[]
-    print "Processing..."
+    print("Processing...")
     for idx,row in tqdm(data.iterrows(), total=data.shape[0]):
         if row['TS_Data'] == 1:
             raster=row['File']
@@ -103,7 +103,7 @@ def Get_Num_Obs(Path_dir,gdf,NoDataValue,mask_value,maskit=True):
     data=pd.read_csv(Path_dir)
     data=data.sort_values(['date'])
     zonelist=[]
-    print "Getting number of observations..."
+    print("Getting number of observations...")
     for idx,row in tqdm(data.iterrows(), total=data.shape[0]):
         if row['obs'] == 1:
             raster=row['File']
@@ -151,7 +151,7 @@ def interpolate_gaps(values, limit=None):
 def run_plot(main_gdf, figsize = (12,6), y_val_alpha = 1, scatter_alpha = 1, 
              error_alpha = 0.2, y_label = "Brightness", x_label = "Date", title_label= "Brightness over time - ID: " 
              ,figname = '', custom_x_axis = True, show_grid = True, show_legend = True, min_count=0.5,ymin=0,ymax=5000):
-    print "Plotting..." 
+    print("Plotting...") 
     for item in main_gdf['ID'].unique():
         plt.style.use('fivethirtyeight')
         fig, ax = plt.subplots(figsize=figsize)
@@ -255,7 +255,7 @@ def run_plot(main_gdf, figsize = (12,6), y_val_alpha = 1, scatter_alpha = 1,
 def run_dual_plot(main_gdf,gdf2, figsize = (12,6), y_val_alpha = 1, scatter_alpha = 1, 
              error_alpha = 0.2, y_label = "Brightness", x_label = "Date", title_label= "Brightness over time - ID: " 
              ,figname = '', custom_x_axis = True, show_grid = True, show_legend = True, min_count=0.5,ymin=0,ymax=5000):
-    print "Plotting..." 
+    print("Plotting...") 
     for item in main_gdf['ID'].unique() & gdf2['ID'].unique():
         plt.style.use('fivethirtyeight')
         fig, ax = plt.subplots(figsize=figsize)
@@ -386,7 +386,7 @@ def run_dual_plot(main_gdf,gdf2, figsize = (12,6), y_val_alpha = 1, scatter_alph
 def run_tri_plot(main_gdf,gdf2, gdfx, figsize = (12,6), y_val_alpha = 1, scatter_alpha = 1, 
              error_alpha = 0.2, y_label = "Brightness", x_label = "Date", title_label= "Brightness over time - ID: " 
              ,figname = '', custom_x_axis = True, show_grid = True, show_legend = True, min_count=0.5,ymin=0,ymax=5000):
-    print "Plotting..." 
+    print("Plotting...") 
     for item in main_gdf['ID'].unique() & gdf2['ID'].unique():
         plt.style.use('fivethirtyeight')
         fig, ax = plt.subplots(figsize=figsize)
@@ -556,36 +556,36 @@ def CSV_It(input_dir, TSdata="S*rade9.tif",Observations="", Mask="",DateLoc="10:
     BandNum=BandNum.strip()
     
     if len(TSdata) > 0:
-        print "Pattern:", TSdata
+        print("Pattern:", TSdata)
     else:
-        print "No pattern defined, this is a requirement"
+        print("No pattern defined, this is a requirement")
         exit()
         
     if len(Observations) > 0:
-        print "#Obs Pattern:",Observations
+        print("#Obs Pattern:",Observations)
     else:
-        print "No Observation pattern entered"        
+        print("No Observation pattern entered")        
     if len(DateLoc) > 0:    
-        print "Date Location in filename:", DateLoc
+        print("Date Location in filename:", DateLoc)
     else:
-        print "No date pattern entered, this is a requirement"
+        print("No date pattern entered, this is a requirement")
         exit()
         
     if len(BandNum) > 0:
-        print "Band Location in filename:", BandNum
+        print("Band Location in filename:", BandNum)
     else:
-        print "No band number location entered"
+        print("No band number location entered")
         
         
     if len(Mask) > 0:
-        print "Mask band pattern:", Mask
+        print("Mask band pattern:", Mask)
     else:
-        print "No mask band entered"
+        print("No mask band entered")
         
     os.chdir(input_dir)    
     #Identify all subdirs that contain our raster data
     input_subdirs= glob.glob('*/')
-    print len(input_subdirs)
+    print(len(input_subdirs))
     
     rasterList=[]
     DateLoc=DateLoc.split(":")
@@ -650,18 +650,18 @@ def LS_CSV_It(input_dir, TSdata="L*.tif", Mask="",DateLoc="10:18",Band="BLUE"):
     Band=Band.strip()
     
     if len(TSdata) > 0:
-        print "Pattern:", TSdata
+        print("Pattern:", TSdata)
     else:
-        print "No pattern defined, this is a requirement"
+        print("No pattern defined, this is a requirement")
         exit()
     if len(DateLoc) > 0:    
-        print "Date Location in filename:", DateLoc
+        print("Date Location in filename:", DateLoc)
     else:
-        print "No date pattern entered, this is a requirement"
+        print("No date pattern entered, this is a requirement")
         exit()
         
     if len(Band) > 0:
-        print "Band of interest:", Band
+        print("Band of interest:", Band)
         if Band== "COASTAL":
             TSdata=["LC08*band1.tif"]
         if Band=="BLUE":
@@ -677,20 +677,20 @@ def LS_CSV_It(input_dir, TSdata="L*.tif", Mask="",DateLoc="10:18",Band="BLUE"):
         if Band=="SWIR2":
             TSdata= ['LE07*band7.tif', 'LT05*band7.tif', 'LC08*band7.tif' ]
     else:
-        print "No band entered, this is recommended for Landsat, unless you are working with an index like NDVI"
-        print "Options are: COASTAL, BLUE, GREEN, RED, NIR, SWIR1, SWIR2"
+        print("No band entered, this is recommended for Landsat, unless you are working with an index like NDVI")
+        print("Options are: COASTAL, BLUE, GREEN, RED, NIR, SWIR1, SWIR2")
         TSdata=[TSdata]
         
         
     if len(Mask) > 0:
-        print "Mask band pattern:", Mask
+        print("Mask band pattern:", Mask)
     else:
-        print "No mask band entered"
+        print("No mask band entered")
         
     os.chdir(input_dir)    
     #Identify all subdirs that contain our raster data
     input_subdirs= glob.glob('*/')
-    print len(input_subdirs)
+    print(len(input_subdirs))
     
     rasterList=[]
     DateLoc=DateLoc.split(":")

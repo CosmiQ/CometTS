@@ -32,7 +32,7 @@ from fnmatch import fnmatch
 def run_plot_TS(main_gdf, figsize = (12,6), y_val_alpha = 1, scatter_alpha = 1, 
              error_alpha = 0.2, y_label = "Brightness", x_label = "Date", title_label= "Brightness over time - Census Tract 9509, Yabucoa Municipio" 
              , outname="/Outname.csv",figname = '', custom_x_axis = True, show_grid = True, show_legend = True, min_count=0.5,ymin=0,ymax=5000):
-    print "Plotting..." 
+    print("Plotting...") 
     C=0
     for item in main_gdf['ID'].unique():
         C+=1
@@ -179,7 +179,7 @@ def TS_Trend(gdf3,CMA_Val=5,CutoffDate="2017/08/31"):
         return gdf3
     
 def calc_TS_Trends(main_gdf,outname="/FullStats_TS_Trend.csv"):
-    print "Calculating..." 
+    print("Calculating...") 
     C=0
     for item in tqdm(main_gdf['ID'].unique()):
         C+=1
