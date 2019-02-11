@@ -1,6 +1,23 @@
-Comet Time Series (CometTS) Visualizer
-===================
+<h1 align="center">Comet Time Series (CometTS) Visualizer</h1>
+
 ![Niamey Time Series Plot](ExamplePlots/Niamey.png)
+
+<p align="center">
+<img align="center" src="https://img.shields.io/pypi/v/cometts.svg" alt="PyPI">
+<img align="center" src="https://img.shields.io/conda/vn/conda-forge/cometts.svg" alt="conda-forge">
+<img align="center" src="https://travis-ci.com/CosmiQ/cometts.svg?branch=master" alt="build">
+<img align="center" src="https://img.shields.io/github/license/cosmiq/cometts.svg" alt="license">
+<img align="center" src="https://img.shields.io/docker/build/cosmiqworks/cometts.svg" alt="docker">
+<a href="https://codecov.io/gh/CosmiQ/cometts"><img align="center" src="https://codecov.io/gh/CosmiQ/cometts/branch/master/graph/badge.svg" /></a>
+</p>
+
+- [Installation Instructions](#installation-instructions)
+- [Dependencies](#dependencies)
+- [License](#license)
+---
+
+
+
 ## About
 The Comet Time Series tool is an open source IPython Notebook deployment that enables users to visualize a time series of satellite or potentially airborne imagery within a specific area. A user can input a time series raster dataset and a polygon vector file (i.e., shapefile or geojson) that contains an area or set of areas. Within each area, a .csv file will be output containing relevant statistics. A plot will also be produced to enable simple yet effective visualizations.
 
@@ -124,10 +141,21 @@ Brightness declines (i.e., putative population decline) as a result of Syrian Ci
 A visualization of the Normalized Difference Vegetation Index (NDVI) in a field north of Houston using a time-series of Landsat imagery.
 
 
-## Contribute or debug?
-Interested in proposing a change, fixing a bug, or asking for help? Check out the [contributions](https://github.com/CosmiQ/CometTS/blob/master/CONTRIBUTING.MD) guidance.
-
 ## Landsat Expansion Pack
 ![Landsat Time Series Plot](ExamplePlots/LandsatPlot.png)
 Extra code for working with Landsat imagery is now provided.  A users guide and helper scripts for aquiring Landsat imagery, organizing the data after download, and cloud masking that imagery is available in the [Landsat_Expansion_Docs_HelperScripts](https://github.com/CosmiQ/CometTS/tree/master/Landsat_Expansion_Docs_HelperScripts) folder.  Above we can see a time-series visualization of the Lower Ninth Ward in New Orleans from 2000-2018.  Note the affects of Hurricane Katrina on different multispectral bands in late 2005.
 
+## Contribute or debug?
+Interested in proposing a change, fixing a bug, or asking for help? Check out the [contributions](https://github.com/CosmiQ/CometTS/blob/master/CONTRIBUTING.MD) guidance.
+
+## Dependencies
+All dependencies can be found in the docker file [Dockerfile](./Dockerfile) or
+[environment.yml](./environment.yml)
+
+## License
+See [LICENSE](./LICENSE.txt).
+
+## Traffic
+![GitHub](https://img.shields.io/github/downloads/cosmiq/cometts/total.svg)
+![PyPI](https://img.shields.io/pypi/dm/cometts.svg)
+![Conda](https://img.shields.io/conda/dn/conda-forge/cometts.svg)
