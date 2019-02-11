@@ -17,7 +17,6 @@
 ---
 
 
-
 ## About
 The Comet Time Series tool is an open source IPython Notebook deployment that enables users to visualize a time series of satellite or potentially airborne imagery within a specific area. A user can input a time series raster dataset and a polygon vector file (i.e., shapefile or geojson) that contains an area or set of areas. Within each area, a .csv file will be output containing relevant statistics. A plot will also be produced to enable simple yet effective visualizations.
 
