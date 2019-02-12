@@ -29,10 +29,10 @@ Check out the expansion pack & users guide for working with Landsat imagery [her
 
 
 ## Installation
-Python 2.7+, GDAL, and Jupyter Notebooks are the baseline requirements. The other requirements are listed in Requirements.txt and are easily installable via pip or conda.
+Python 3.6+ plus everything listed in Requirements.txt, easily installable via pip or conda.
 
 
-    pip install -r Requirements.txt
+    pip3 install -r Requirements.txt
 
 
 ## Dataset Organization
