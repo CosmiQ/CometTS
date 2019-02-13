@@ -11,7 +11,7 @@
 <a href="https://codecov.io/gh/CosmiQ/cometts"><img align="center" src="https://codecov.io/gh/CosmiQ/cometts/branch/master/graph/badge.svg" /></a>
 </p>
 
-- [Installation Instructions](#installation-instructions)
+- [Installation Instructions](#installation)
 - [Dependencies](#dependencies)
 - [License](#license)
 ---
