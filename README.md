@@ -29,10 +29,10 @@ Check out the expansion pack & users guide for working with Landsat imagery [her
 
 
 ## Installation
-Python 3.6+ plus everything listed in Requirements.txt, easily installable via pip or conda.
+Python 2.7 or 3.6+ plus everything listed in Requirements.txt, easily installable via pip or conda.
 
 
-    pip3 install -r Requirements.txt
+    pip install -r Requirements.txt
 
 
 ## Dataset Organization
