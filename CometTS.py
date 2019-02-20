@@ -8,17 +8,19 @@ import pandas as pd
 import geopandas as gpd
 import shapely.wkt
 import matplotlib.pyplot as plt
-from tqdm import tqdm_notebook as tqdm
+# from tqdm import tqdm_notebook as tqdm
 import matplotlib.dates as mdates
 from scipy.signal import gaussian
 from scipy.ndimage import filters
 from fnmatch import fnmatch
+import argparse
 
 
 def Process_imagery(Path_dir, zonalpoly, NoDataValue, mask_value, maskit=True):
     print(zonalpoly)
     gdf = gpd.read_file(zonalpoly)
     if maskit:
+        mask_value = str(mask_value)
         mask_value = mask_value.split(",")
     # Get the zonal stats
     NoDataValue = int(NoDataValue)
@@ -251,7 +253,7 @@ def run_plot(
             s=50,
             color='black',
             alpha=scatter_alpha)
-        #ax.scatter(xdate, y2, label="Mean", s=50, color='red',alpha=scatter_alpha, marker='x')
+        # ax.scatter(xdate, y2, label="Mean", s=50, color='red',alpha=scatter_alpha, marker='x')
 
         # if desired, plot error band
         plt.fill_between(
@@ -287,11 +289,11 @@ def run_plot(
             plt.rc('xtick', labelsize=12)
 
             # ax.set_xticks(xdate)
-            #ax.set_xticklabels(x, rotation=50, fontsize=10)
-            #ax.tick_params(axis='x', which='major', pad=xticklabel_pad)
+            # ax.set_xticklabels(x, rotation=50, fontsize=10)
+            # ax.tick_params(axis='x', which='major', pad=xticklabel_pad)
 
             # ax.xaxis.set_major_formatter(dateformat)
-            #ax.set_xlim(datetime.date(settings.plot['x_min'], 1, 1),datetime.date(settings.plot['x_max'], 12, 31))
+            # ax.set_xlim(datetime.date(settings.plot['x_min'], 1, 1),datetime.date(settings.plot['x_max'], 12, 31))
 
         if show_grid:
             ax.grid(
@@ -740,9 +742,9 @@ def run_tri_plot(
 
 def CSV_It(
         input_dir,
-        TSdata="S*rade9.tif",
-        Observations="",
-        Mask="",
+        TSdata="S*rade9*.tif",
+        Observations="S*cvg.tif",
+        Mask="S*cvg.tif",
         DateLoc="10:18",
         BandNum=""):
     # Ensuring the user entered everything properly
@@ -998,3 +1000,40 @@ def gen_tri_plot(
         show_grid=False,
         ymax=5000,
         y_label="Surface Reflectance x 10000")
+
+###############################################################################
+
+
+def main():
+
+    # Construct argument parser
+    parser = argparse.ArgumentParser()
+    directory = os.path.join(os.getcwd(), "VIIRS_Sample")
+    List = os.path.join(directory, 'Raster_List.csv')
+    Poly = os.path.join(directory, 'San_Juan.shp')
+
+    # general settings
+    parser.add_argument('--input_csv', type=str, default=List,
+                        help="Enter csv to data - default: " + List)
+    parser.add_argument('--zonalpoly', type=str, default=Poly,
+                        help="Enter full path to vector polygon - default: " + Poly)
+    parser.add_argument('--NoDataValue', type=str, default=-1,
+                        help="Default is -1. Enter NoData Value for null space in imagery(ex: Landsat typically -9999, VIIRS Monthly Composites -1)")
+    parser.add_argument('--mask_value', type=str, default=0,
+                        help="Default is 0. Enter mask pixel value(s).  (ex: Clouds/Cloud Shadow=1), If multiple values seperate with a comma (i.e. 1,2,99) if no masking is required, leave blank")
+    parser.add_argument('--maskit', type=bool, default=True,
+                        help="Turn masking functionality on or off, default is true.  Set to false to turn off.")
+
+    args = parser.parse_args()
+
+    Process_imagery(args.input_csv, args.zonalpoly, args.NoDataValue, args.mask_value, maskit=args.maskit)
+    print("Run Plot_Results.ipynb to generate visualizations from output CSV")
+
+
+###############################################################################
+
+if __name__ == "__main__":
+    from tqdm import tqdm as tqdm
+    main()
+else:
+    from tqdm import tqdm_notebook as tqdm
