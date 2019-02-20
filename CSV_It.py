@@ -112,10 +112,11 @@ def main():
 
     ### Construct argument parser
     parser = argparse.ArgumentParser()
+    directory = os.path.join(os.getcwd(), "VIIRS_Sample")
 
     # general settings
-    parser.add_argument('--input_dir', type=str, default='/VIIRS_Sample',
-                        help="input directory for time series data")
+    parser.add_argument('--input_dir', type=str, default=directory,
+                        help="input directory for time series data, default: " + directory)
     parser.add_argument('--TSdata', type=str, default='S*rade9*.tif',
                         help="The naming pattern for your time-series data, if not necessary, just set as *")
     parser.add_argument('--Observations', type=str, default='S*cvg*.tif',
