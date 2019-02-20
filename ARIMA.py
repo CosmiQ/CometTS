@@ -1,20 +1,22 @@
 import matplotlib.dates as mdates
-from tqdm import tqdm_notebook as tqdm
+from tqdm import tqdm as tqdm
 import datetime
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from CometTS import interpolate_gaps
+import argparse
+import os
 sns.set(color_codes=True)
 
 
-# Functions for an auto-regressive integrated moving average analysis
+# Functions for a seasonal auto-regressive integrated moving average analysis
 # using CometTS on a time series of satellite imagery.
 
 
 def run_plot_TS(
-        main_gdf,
+        ARIMA_GDF,
         figsize=(
             12,
             6),
@@ -23,8 +25,7 @@ def run_plot_TS(
     error_alpha=0.2,
     y_label="Brightness",
     x_label="Date",
-    title_label="Brightness over time - Census Tract 9509, Yabucoa Municipio",
-    outname="/Outname.csv",
+    title_label="ARIMA_Trend",
     figname='',
     custom_x_axis=True,
     show_grid=True,
@@ -34,19 +35,21 @@ def run_plot_TS(
         ymax=5000):
     print("Plotting...")
     C = 0
-    for item in main_gdf['ID'].unique():
+    # ARIMA GDF is the output GDF from TS_Trend function
+    for item in ARIMA_GDF['ID'].unique():
         C += 1
         plt.style.use('fivethirtyeight')
         fig, ax = plt.subplots(figsize=figsize)
-        gdf3 = main_gdf[(main_gdf.ID == item)]
+        gdf3 = ARIMA_GDF[(ARIMA_GDF.ID == item)]
         title = title_label
-        gdf3 = gdf3.sort_values(['date'])
-        gdf3 = TS_Trend(gdf3, CMA_Val=5, CutoffDate="2017/08/31")
+        # gdf3 = gdf3.sort_values(['date'])
+        # gdf3 = TS_Trend(gdf3, CMA_Val=5, CutoffDate="2017/08/31")
         gdf3 = gdf3.sort_values(['date'])
         x = gdf3['date']
         xdate = x.astype('O')
         xdate = mdates.date2num(xdate)
         y = gdf3['mean']
+        anomaly = gdf3['Anomaly']
         if 'SeasonalForecast' in gdf3.columns:
             if C == 1:
                 gdf_holder = gdf3
@@ -55,8 +58,8 @@ def run_plot_TS(
             T = gdf3['SeasonalForecast']
             if 'observations' in gdf3.columns:
                 count = gdf3['observations']
-            err_plus = gdf3['mean'] + gdf3['std']
-            err_minus = gdf3['mean'] - gdf3['std']
+            err_plus = gdf3['SeasonalError_Pos']
+            err_minus = gdf3['SeasonalError_Neg']
             # Set the min_count value as a value from 0 to 1 (0 to 100%)
             # ax.set_ylim([ymin,ymax])
 
@@ -107,6 +110,13 @@ def run_plot_TS(
                     s=50,
                     color='black',
                     alpha=scatter_alpha)
+                ax.scatter(
+                    xdate,
+                    anomaly,
+                    label="Anomalies",
+                    s=50,
+                    color='red',
+                    alpha=scatter_alpha)
                 #ax.scatter(xdate, y2, label="Mean", s=50, color='red',alpha=scatter_alpha,marker='x')
 
                 # if desired, plot error band
@@ -116,7 +126,7 @@ def run_plot_TS(
                     err_minus,
                     alpha=error_alpha,
                     color='black',
-                    label="Standard Deviation")
+                    label="Forecast MAE")
 
                 ax.set_ylabel(y_label)
                 ax.set_xlabel(x_label)
@@ -173,51 +183,72 @@ def run_plot_TS(
                 # save with figname
                 if len(figname) > 0:
                     plt.savefig(figname, dpi=500)
-    output = outname
-    gdf_holder.to_csv(output)
 
 
-def TS_Trend(gdf3, CMA_Val=5, CutoffDate="2017/08/31"):
+def TS_Trend(gdf3, CMA_Val=3, CutoffDate="2017/08/31",Uncertainty=2):
     x = gdf3['date']
+    # Split data into a before and after event, i.e. a Hurricane.
+    # If no event simply set as last date in dataset, or a middle date.
     CutoffDate = datetime.datetime.strptime(CutoffDate, '%Y/%m/%d').date()
+    # Do some date conversion
     xcutoff = mdates.date2num(CutoffDate)
     xdate = x.astype('O')
-    xdate = mdates.date2num(xdate)
+    xdate = mdates.datestr2num(xdate)
     gdf3['xdate'] = xdate
+    # Presently geared toward monthly trends only, could split this into days.
     gdf3['Month'] = pd.DatetimeIndex(gdf3['date']).month
+    # Create a new GDF for before the event
     gdf4 = gdf3.loc[gdf3['xdate'] <= xcutoff]
     gdf3 = gdf3.sort_values(['date'])
     gdf4 = gdf4.sort_values(['date'])
+    # print(gdf4)
+    # print(gdf3)
+    # Start ARIMA
     y = gdf4['mean']
     gdf4['CMA'] = y.rolling(window=CMA_Val, center=True).mean()
     gdf4['Div'] = gdf4['mean'] / gdf4['CMA']
-
+    # print(gdf4['Div'])
     f = gdf4.groupby(['Month'])['Div'].mean()
     f = pd.DataFrame({'Month': f.index, 'SeasonalTrend': f.values})
     gdf4 = gdf4.merge(f, on='Month')
     gdf3 = gdf3.merge(f, on='Month')
+    # Seasonal ARIMA
     gdf4['Deseasonalized'] = gdf4['mean'] / gdf4['SeasonalTrend']
     y = gdf4['Deseasonalized']
     z = gdf4['xdate']
     gdf3 = gdf3.sort_values(['date'])
     idx = np.isfinite(z) & np.isfinite(y)
-    if not any(idx) == False:
+    if not any(idx) is False:
+        # Apply ARIMA to the oringial GDF
         p2 = np.poly1d(np.polyfit(z[idx], y[idx], 1))
         gdf3['Trend'] = p2(gdf3['xdate'])
         gdf3['SeasonalForecast'] = gdf3['SeasonalTrend'] * gdf3['Trend']
+        gdf4['Trend'] = p2(gdf4['xdate'])
+        gdf4['SeasonalForecast'] = gdf4['SeasonalTrend'] * gdf4['Trend']
+        Error = Uncertainty * np.nanmean(abs(gdf4['SeasonalForecast'] - gdf4['mean']))
+        gdf3['SeasonalError_Pos'] = gdf3['SeasonalForecast'] + Error
+        gdf3['SeasonalError_Neg'] = gdf3['SeasonalForecast'] - Error
+        Neg_Anom =  gdf3['mean'] < gdf3['SeasonalError_Neg']
+        Pos_Anom = gdf3['mean'] > gdf3['SeasonalError_Pos']
+        gdf5 = gdf3.where(Neg_Anom | Pos_Anom)
+        gdf3['Anomaly'] = gdf5['mean']
+        # print(gdf3['Anomaly'])
+
+        # print(gdf3['Anomaly'])
         return gdf3
     else:
         return gdf3
 
 
-def calc_TS_Trends(main_gdf, outname="/FullStats_TS_Trend.csv"):
+def calc_TS_Trends(CometTSOutputCSV="/San_Juan_FullStats.csv", outname="/FullStats_TS_Trend.csv", CMA_Val=3, CutoffDate= "2017/12/31",Uncertainty=2):
     print("Calculating...")
     C = 0
+    main_gdf = pd.read_csv(CometTSOutputCSV)
     for item in tqdm(main_gdf['ID'].unique()):
         C += 1
         gdf3 = main_gdf[(main_gdf.ID == item)]
         gdf3 = gdf3.sort_values(['date'])
-        gdf3 = TS_Trend(gdf3, CMA_Val=5, CutoffDate="2017/08/31")
+        gdf3 = TS_Trend(gdf3, CMA_Val=CMA_Val, CutoffDate=CutoffDate, Uncertainty=Uncertainty)
         gdf3 = gdf3.sort_values(['date'])
         if 'SeasonalForecast' in gdf3.columns:
             if C == 1:
@@ -225,5 +256,37 @@ def calc_TS_Trends(main_gdf, outname="/FullStats_TS_Trend.csv"):
             else:
                 gdf_holder = gdf_holder.append(gdf3)
 
-    output = outname
-    gdf_holder.to_csv(output)
+    gdf_holder.to_csv(outname)
+
+###############################################################################
+
+
+def main():
+
+    # Construct argument parser
+    parser = argparse.ArgumentParser()
+    directory = os.path.join(os.getcwd(), "VIIRS_Sample")
+    List = os.path.join(directory, 'San_Juan_FullStats.csv')
+    ARIMA = os.path.join(directory, 'San_Juan_ARIMA_Output.csv')
+
+    # general settings
+    parser.add_argument('--CometTSOutputCSV', type=str, default=List,
+                        help="Enter CometTS output CSV, default: " + List)
+    parser.add_argument('--ARIMA_CSV', type=str, default=ARIMA,
+                        help="Enter output CSV name for ARIMA: " + ARIMA)
+    parser.add_argument('--CMA_Val', type=str, default=3,
+                        help="Default is 3. Centered Moving Average Value for ARIMA, set to an odd number >=3")
+    parser.add_argument('--CutoffDate', type=str, default="2017/08/15",
+                        help="Default is 2017/08/15. Format YYYY/MM/DD. Split data into a before and after event, i.e. a Hurricane. If no event simply set as last date in dataset, or a middle date. Ensure you have at least 14 months of data to pull out an historical trend")
+    parser.add_argument('--Uncertainty', type=int, default=2,
+                        help="Multiplier for the mean absolute error from the ARIMA forecast, for shorter timeseries a greater uncertainty value is likely required so anomalies are not overly flagged.")
+    args = parser.parse_args()
+
+    calc_TS_Trends(args.CometTSOutputCSV, args.ARIMA_CSV, args.CMA_Val, args.CutoffDate, args.Uncertainty)
+    print("Run ARIMA_Plotting.ipynb to generate visualizations from output CSV")
+
+
+###############################################################################
+
+if __name__ == "__main__":
+    main()
