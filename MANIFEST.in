@@ -1,4 +1,3 @@
 include *.txt
 include *.md
-include /VIIRS_Sample/*.tif
-include /VIIRS_Sample/*.csv
+include /VIIRS_Sample/*
