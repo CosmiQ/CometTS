@@ -153,7 +153,7 @@ All dependencies can be found in the docker file [Dockerfile](./Dockerfile) or
 [environment.yml](./environment.yml)
 
 ## License
-See [LICENSE](./LICENSE.txt).
+See [LICENSE](./LICENSE).
 
 ## Traffic
 ![GitHub](https://img.shields.io/github/downloads/cosmiq/cometts/total.svg)
