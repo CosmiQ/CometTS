@@ -17,7 +17,7 @@
   <VRTRasterBand dataType="UInt16" band="1">
     <ColorInterp>Gray</ColorInterp>
     <SimpleSource>
-      <SourceFilename relativeToVRT="0">/Users/jshermeyer/CosmiqGit/CometTS_dev/CometTS/VIIRS_Sample/SVDNB_npp_20180401-20180430_75N180W_vcmcfg_v10_c201805021400//SVDNB_npp_20180401-20180430_75N180W_vcmcfg_v10_c201805021400.cf_cvg_clip.tif</SourceFilename>
+      <SourceFilename relativeToVRT="0">/Users/jshermeyer/CosmiqGit/CometTS/CometTS/VIIRS_Sample/SVDNB_npp_20180401-20180430_75N180W_vcmcfg_v10_c201805021400//SVDNB_npp_20180401-20180430_75N180W_vcmcfg_v10_c201805021400.cf_cvg_clip.tif</SourceFilename>
       <SourceBand>1</SourceBand>
       <SourceProperties RasterXSize="207" RasterYSize="165" DataType="UInt16" BlockXSize="207" BlockYSize="19" />
       <SrcRect xOff="49" yOff="10" xSize="68" ySize="36" />
