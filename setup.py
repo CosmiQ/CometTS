@@ -34,6 +34,6 @@ setup(name='CometTS',
       install_requires=inst_reqs,
       extras_require=extra_reqs,
       entry_points={
-          'console_scripts': ['spacenet_eval=cw_eval.challenge_eval.spacenet_eval:main']
+          'console_scripts': ['CometTS=CometTS.CometTS:main']
       }
       )
