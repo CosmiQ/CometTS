@@ -4,7 +4,7 @@ import pandas as pd
 import geopandas as gpd
 from tqdm import tqdm as tqdm
 from fnmatch import fnmatch
-from CometTS import get_extent
+from CometTS.CometTS import get_extent
 import argparse
 
 def CSV_It(
