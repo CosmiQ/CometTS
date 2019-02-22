@@ -1,7 +1,7 @@
 import os
-from CometTS import Process_imagery
-from CSV_It import CSV_It
-from ARIMA import calc_TS_Trends
+from CometTS.CometTS import Process_imagery
+from CometTS.CSV_It import CSV_It
+from CometTS.ARIMA import calc_TS_Trends
 import pandas as pd
 
 """Pytest evaluations.  These only test the single band processing,
