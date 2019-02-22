@@ -28,6 +28,8 @@ class TestEvalBase(object):
         base_instance = base_instance.sort_values(by=['date'])
         base_instance = base_instance[['date', 'extent']]
         gdf = gdf[['date', 'extent']]
+        print(gdf['extent'])
+        print(base_instance['extent'])
 
         # base_instance.set_index('date')
         # gdf.set_index('date')
@@ -52,6 +54,8 @@ class TestEvalBase(object):
         base_instance = base_instance.sort_values(by=['date'])
         base_instance = base_instance[['date', 'mean']]
         gdf = gdf[['date', 'mean']]
+        print(gdf['mean'])
+        print(base_instance['mean'])
         # base_instance.set_index('date')
         # gdf.set_index('date')
 
@@ -74,6 +78,8 @@ class TestEvalBase(object):
         base_instance = base_instance.sort_values(by=['date'])
         base_instance = base_instance[['date', 'SeasonalForecast']]
         gdf = gdf[['date', 'SeasonalForecast']]
+        print(gdf['SeasonalForecast'])
+        print(base_instance['SeasonalForecast'])
         # base_instance.set_index('date')
         # gdf.set_index('date')
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
