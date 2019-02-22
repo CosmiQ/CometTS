@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0.1'
+version = '1.0.2'
 
 readme = ''
 
@@ -34,6 +34,6 @@ setup(name='CometTS',
       install_requires=inst_reqs,
       extras_require=extra_reqs,
       entry_points={
-          'console_scripts': ['CometTS=CometTS.CometTS:main']
+          'console_scripts': ['CometTS=CometTS.CometTS:main', 'CometTS.CSV_It=CometTS.CSV_It:main', 'CometTS.ARIMA=CometTS.ARIMA:main']
       }
       )
