@@ -26,6 +26,8 @@ class TestEvalBase(object):
         gdf = pd.read_csv(os.path.join(data_dir, "Test_Raster_List.csv"))
         gdf = gdf.sort_values(by=['date'])
         base_instance = base_instance.sort_values(by=['date'])
+        base_instance = base_instance[['date', 'extent']]
+        gdf = gdf[['date', 'extent']]
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
@@ -44,6 +46,9 @@ class TestEvalBase(object):
         gdf = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_FullStats.csv"))
         gdf = gdf.sort_values(by=['date'])
         base_instance = base_instance.sort_values(by=['date'])
+        base_instance = base_instance[['date', 'mean']]
+        gdf = gdf[['date', 'mean']]
+
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
@@ -60,8 +65,24 @@ class TestEvalBase(object):
         gdf = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_ARIMA_Output.csv"))
         gdf = gdf.sort_values(by=['date'])
         base_instance = base_instance.sort_values(by=['date'])
+        base_instance = base_instance[['date', 'SeasonalForecast']]
+        gdf = gdf[['date', 'SeasonalForecast']]
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
         # assert base_instance.equals(gpd.GeoDataFrame([]))
         pd.testing.assert_frame_equal(base_instance, gdf)
+
+
+
+"""
+
+        gdf = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_ARIMA_Output.csv"))
+        # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
+        # assert base_instance.equals(gpd.GeoDataFrame([]))
+        base_instance = pd.read_csv(os.path.join(data_dir, "San_Juan_ARIMA_Output.csv"))
+        #bah = pd.testing.assert_frame_equal(base_instance,gdf)
+        print(base_instance.index)
+        print(gdf.index)
+        #print(bah)
+        # assert base_instance.ground_truth_GDF.equals(base_instance.ground_truth_GDF_Edit)"""
