@@ -24,6 +24,8 @@ class TestEvalBase(object):
         base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_Raster_List2.csv"))
         gdf = pd.read_csv(os.path.join(data_dir, "Test_Raster_List.csv"))
+        gdf = gdf.sort_values(by=['date'], axis=1, inplace=True)
+        base_instance = base_instance.sort_values(by=['date'], axis=1, inplace=True)
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
@@ -40,6 +42,8 @@ class TestEvalBase(object):
         base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_FullStats2.csv"))
         gdf = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_FullStats.csv"))
+        gdf = gdf.sort_values(by=['date'], axis=1, inplace=True)
+        base_instance = base_instance.sort_values(by=['date'], axis=1, inplace=True)
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
@@ -49,11 +53,13 @@ class TestEvalBase(object):
     def test_ARIMA(self):
         # data_dir = os.path.join(os.getcwd(), "VIIRS_Sample")
         """Test instantiation of ARIMA Functions."""
-        calc_TS_Trends(os.path.join(data_dir, "Test_San_Juan_FullStats.csv"), os.path.join(data_dir, "San_Juan_ARIMA_Output.csv"), 3, "2017/08/15", 2)
+        calc_TS_Trends(os.path.join(data_dir, "Test_San_Juan_FullStats.csv"), os.path.join(data_dir, "Test_San_Juan_ARIMA_Output2.csv"), 3, "2017/08/15", 2)
         #output = os.path.join(data_dir, 'Test_San_Juan_FullStats2.csv')
         #base_instance.to_csv(output)
-        base_instance = pd.read_csv(os.path.join(data_dir, "San_Juan_ARIMA_Output.csv"))
+        base_instance = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_ARIMA_Output2.csv"))
         gdf = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_ARIMA_Output.csv"))
+        gdf = gdf.sort_values(by=['date'], axis=1, inplace=True)
+        base_instance = base_instance.sort_values(by=['date'], axis=1, inplace=True)
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
