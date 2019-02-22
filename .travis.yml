@@ -30,7 +30,6 @@ install:
   - pip install -q -e .
   - pip install codecov pytest pytest-cov
 # command to run tests
-before_script: cd CometTS
 script:
   - python -m pytest -s --cov=./
 
