@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from CometTS import interpolate_gaps
+from CometTS.CometTS import interpolate_gaps
 import argparse
 import os
 sns.set(color_codes=True)
