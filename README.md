@@ -4,7 +4,7 @@
 
 <p align="center">
 <img align="center" src="https://img.shields.io/pypi/v/cometts.svg" alt="PyPI">
-<img align="center" src="https://img.shields.io/conda/vn/conda-forge/cometts.svg" alt="conda-forge">
+<img align="center" src="https://img.shields.io/conda/vn/conda/cometts.svg" alt="conda">
 <img align="center" src="https://travis-ci.com/jshermeyer/CometTS.svg?branch=master" alt="build">
 <img align="center" src="https://img.shields.io/github/license/jshermeyer/cometts.svg" alt="license">
 <img align="center" src="https://img.shields.io/docker/build/cosmiqworks/cometts.svg" alt="docker">
