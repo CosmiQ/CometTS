@@ -24,8 +24,8 @@ class TestEvalBase(object):
         base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_Raster_List2.csv"))
         gdf = pd.read_csv(os.path.join(data_dir, "Test_Raster_List.csv"))
-        gdf = gdf.sort_values(by=['date'], axis=1, inplace=True)
-        base_instance = base_instance.sort_values(by=['date'], axis=1, inplace=True)
+        gdf = gdf.sort_values(by=['date'], inplace=True)
+        base_instance = base_instance.sort_values(by=['date'], inplace=True)
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
@@ -42,8 +42,8 @@ class TestEvalBase(object):
         base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_FullStats2.csv"))
         gdf = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_FullStats.csv"))
-        gdf = gdf.sort_values(by=['date'], axis=1, inplace=True)
-        base_instance = base_instance.sort_values(by=['date'], axis=1, inplace=True)
+        gdf = gdf.sort_values(by=['date'], inplace=True)
+        base_instance = base_instance.sort_values(by=['date'], inplace=True)
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
@@ -58,8 +58,8 @@ class TestEvalBase(object):
         #base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_ARIMA_Output2.csv"))
         gdf = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_ARIMA_Output.csv"))
-        gdf = gdf.sort_values(by=['date'], axis=1, inplace=True)
-        base_instance = base_instance.sort_values(by=['date'], axis=1, inplace=True)
+        gdf = gdf.sort_values(by=['date'], inplace=True)
+        base_instance = base_instance.sort_values(by=['date'], inplace=True)
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
