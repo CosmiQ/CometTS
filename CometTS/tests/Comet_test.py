@@ -28,6 +28,8 @@ class TestEvalBase(object):
         base_instance = base_instance.sort_values(by=['date'])
         base_instance = base_instance[['date', 'extent']]
         gdf = gdf[['date', 'extent']]
+        base_instance.set_index('date')
+        gdf.set_index('date')
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
@@ -48,6 +50,8 @@ class TestEvalBase(object):
         base_instance = base_instance.sort_values(by=['date'])
         base_instance = base_instance[['date', 'mean']]
         gdf = gdf[['date', 'mean']]
+        base_instance.set_index('date')
+        gdf.set_index('date')
 
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
@@ -67,6 +71,8 @@ class TestEvalBase(object):
         base_instance = base_instance.sort_values(by=['date'])
         base_instance = base_instance[['date', 'SeasonalForecast']]
         gdf = gdf[['date', 'SeasonalForecast']]
+        base_instance.set_index('date')
+        gdf.set_index('date')
         # gdf = gdf.loc[:, ~gdf.columns.str.match('Unnamed')]
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
