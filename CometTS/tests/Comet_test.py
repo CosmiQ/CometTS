@@ -37,8 +37,8 @@ class TestEvalBase(object):
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
         # assert base_instance.equals(gpd.GeoDataFrame([]))
-        # pd.testing.assert_frame_equal(base_instance, gdf)
-        assert gdf['extent'].equals(base_instance['extent'])
+        pd.testing.assert_frame_equal(base_instance.reset_index(drop=True), gdf.reset_index(drop=True))
+        # assert gdf['extent'].equals(base_instance['extent'])
 
     def test_Process_imagery(self):
         # data_dir = os.path.join(os.getcwd(), "VIIRS_Sample")
@@ -63,8 +63,8 @@ class TestEvalBase(object):
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
         # assert base_instance.equals(gpd.GeoDataFrame([]))
-        # pd.testing.assert_frame_equal(base_instance, gdf)
-        assert gdf['mean'].equals(base_instance['mean'])
+        pd.testing.assert_frame_equal(base_instance.reset_index(drop=True), gdf.reset_index(drop=True))
+        # assert gdf['mean'].equals(base_instance['mean'])
 
     def test_ARIMA(self):
         # data_dir = os.path.join(os.getcwd(), "VIIRS_Sample")
@@ -86,8 +86,8 @@ class TestEvalBase(object):
         # base_instance = base_instance.loc[:, ~base_instance.columns.str.match('Unnamed')]
         # assert base_instance.ground_truth_sindex.bounds == gdf.sindex.bounds
         # assert base_instance.equals(gpd.GeoDataFrame([]))
-        # pd.testing.assert_frame_equal(base_instance, gdf)
-        assert gdf['SeasonalForecast'].equals(base_instance['SeasonalForecast'])
+        pd.testing.assert_frame_equal(base_instance.reset_index(drop=True), gdf.reset_index(drop=True))
+        # assert gdf['SeasonalForecast'].equals(base_instance['SeasonalForecast'])
 
 
 
