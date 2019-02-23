@@ -132,7 +132,7 @@ def main():
 
     args = parser.parse_args()
     gdf_out = CSV_It(input_dir=args.input_dir, TSdata=args.TSdata, Observations=args.Observations,
-                     Mask=args.Mask, DateLoc=args.DateLoc, BandNum=args.BandNum, output_dir=args.output_dir)
+                     Mask=args.Mask, DateLoc=args.DateLoc, BandNum=args.BandNum)
     output = os.path.join(args.output_dir, 'Raster_List.csv')
     gdf_out.to_csv(output)
 
