@@ -8,11 +8,10 @@ import pandas as pd
 import geopandas as gpd
 import shapely.wkt
 import matplotlib.pyplot as plt
-# from tqdm import tqdm_notebook as tqdm
+from tqdm import tqdm as tqdm
 import matplotlib.dates as mdates
 from scipy.signal import gaussian
 from scipy.ndimage import filters
-from fnmatch import fnmatch
 import argparse
 
 
@@ -741,107 +740,6 @@ def run_tri_plot(
             plt.savefig(figname, dpi=500)
 
 
-def CSV_It(
-        input_dir,
-        TSdata="S*rade9*.tif",
-        Observations="S*cvg.tif",
-        Mask="S*cvg.tif",
-        DateLoc="10:18",
-        BandNum=""):
-    # Ensuring the user entered everything properly
-    input_dir = input_dir.strip()
-    TSdata = TSdata.strip()
-    Observations = Observations.strip()
-    Mask = Mask.strip()
-    DateLoc = DateLoc.strip()
-    BandNum = BandNum.strip()
-
-    if len(TSdata) > 0:
-        print("Pattern:", TSdata)
-    else:
-        print("No pattern defined, this is a requirement")
-        exit()
-
-    if len(Observations) > 0:
-        print("#Obs Pattern:", Observations)
-    else:
-        print("No Observation pattern entered")
-    if len(DateLoc) > 0:
-        print("Date Location in filename:", DateLoc)
-    else:
-        print("No date pattern entered, this is a requirement")
-        exit()
-
-    if len(BandNum) > 0:
-        print("Band Location in filename:", BandNum)
-    else:
-        print("No band number location entered")
-
-    if len(Mask) > 0:
-        print("Mask band pattern:", Mask)
-    else:
-        print("No mask band entered")
-
-    os.chdir(input_dir)
-    # Identify all subdirs that contain our raster data
-    input_subdirs = glob.glob('*/')
-    print(len(input_subdirs))
-
-    rasterList = []
-    DateLoc = DateLoc.split(":")
-    for directory in tqdm(input_subdirs):
-        os.chdir(directory)
-        # Find our primary rasters of interest
-        FilePattern = glob.glob(TSdata)
-        if len(Observations) > 0:
-            Observations = [Observations]
-            FilePattern = [x for x in FilePattern if not any(
-                fnmatch(x, TSdata) for TSdata in Observations)]
-            Observations = Observations[0]
-        for raster in FilePattern:
-            statout = [{}]
-            statout[0]['File'] = input_dir + '/' + directory + '/' + raster
-            rasterExtent = get_extent(raster)
-            statout[0]['extent'] = rasterExtent
-            date = raster[int(DateLoc[0]):int(DateLoc[1])]
-            statout[0]['date'] = pd.to_datetime(
-                date, infer_datetime_format=True)
-            statout[0]['obs'] = 0
-            statout[0]['TS_Data'] = 1
-            if len(BandNum) > 0:
-                BandNum = raster[int(BandNum[0]):int(BandNum[1])]
-                statout[0]['band_num'] = BandNum
-            if len(Mask) > 0:
-                mask = glob.glob(Mask)[0]
-                statout[0]['Mask'] = input_dir + '/' + directory + '/' + mask
-            rasterList.append(statout[0])
-
-        if len(Observations) > 0:
-            FilePattern = glob.glob(Observations)
-            for raster in FilePattern:
-                statout = [{}]
-                statout[0]['File'] = input_dir + '/' + directory + '/' + raster
-                rasterExtent = get_extent(raster)
-                statout[0]['extent'] = rasterExtent
-                date = raster[int(DateLoc[0]):int(DateLoc[1])]
-                statout[0]['date'] = pd.to_datetime(
-                    date, infer_datetime_format=True)
-                statout[0]['obs'] = 1
-                statout[0]['TS_Data'] = 0
-                if len(BandNum) > 0:
-                    statout[0]['band_num'] = 0
-                if len(Mask) > 0:
-                    mask = glob.glob(Mask)[0]
-                    statout[0]['Mask'] = input_dir + \
-                        '/' + directory + '/' + mask
-                rasterList.append(statout[0])
-
-        os.chdir(input_dir)
-
-    gdf = gpd.GeoDataFrame(rasterList)
-    return gdf
-
-
 def LS_CSV_It(
         input_dir,
         TSdata="L*.tif",
@@ -1036,7 +934,4 @@ def main():
 ###############################################################################
 
 if __name__ == "__main__":
-    from tqdm import tqdm as tqdm
     main()
-else:
-    from tqdm import tqdm_notebook as tqdm
