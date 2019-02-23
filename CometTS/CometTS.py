@@ -16,7 +16,7 @@ from fnmatch import fnmatch
 import argparse
 
 
-def Process_imagery(Path_dir, zonalpoly, NoDataValue, mask_value, maskit=True):
+def Process_imagery(Path_dir, zonalpoly, NoDataValue, mask_value, maskit=True, Path_out=""):
     print(zonalpoly)
     gdf = gpd.read_file(zonalpoly)
     if maskit:
@@ -36,7 +36,8 @@ def Process_imagery(Path_dir, zonalpoly, NoDataValue, mask_value, maskit=True):
     z_simple = zonalpoly.split('/')
     z_simple = z_simple[-1].split('.')
     z_simple = z_simple[0]
-    Path_out = os.path.dirname(os.path.abspath(Path_dir))
+    if Path_out == "":
+        Path_out = os.path.dirname(os.path.abspath(Path_dir))
 
     output = os.path.join(Path_out, z_simple + '_FullStats.csv')
     print("CSV statistics saved here: ", output)
@@ -1023,10 +1024,12 @@ def main():
                         help="Default is 0. Enter mask pixel value(s).  (ex: Clouds/Cloud Shadow=1), If multiple values seperate with a comma (i.e. 1,2,99) if no masking is required, leave blank")
     parser.add_argument('--maskit', type=bool, default=True,
                         help="Turn masking functionality on or off, default is true.  Set to false to turn off.")
+    parser.add_argument('--Path_out', type=str, default="",
+                        help="Add an output path for CSVs.  Default is the same directory as the input_csv")
 
     args = parser.parse_args()
 
-    Process_imagery(args.input_csv, args.zonalpoly, args.NoDataValue, args.mask_value, maskit=args.maskit)
+    Process_imagery(args.input_csv, args.zonalpoly, args.NoDataValue, args.mask_value, maskit=args.maskit, Path_out=args.Path_out)
     print("Run Plot_Results.ipynb to generate visualizations from output CSV")
 
 
