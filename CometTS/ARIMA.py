@@ -271,9 +271,9 @@ def main():
 
     # general settings
     parser.add_argument('--CometTSOutputCSV', type=str, default=List,
-                        help="Enter CometTS output CSV, default: " + List)
+                        help="Enter CSV output from CometTS script, as input for ARIMA, default: " + List)
     parser.add_argument('--ARIMA_CSV', type=str, default=ARIMA,
-                        help="Enter output CSV name for ARIMA: " + ARIMA)
+                        help="Enter ARIMA CSV output name: " + ARIMA)
     parser.add_argument('--CMA_Val', type=str, default=3,
                         help="Default is 3. Centered Moving Average Value for ARIMA, set to an odd number >=3")
     parser.add_argument('--CutoffDate', type=str, default="2017/08/15",

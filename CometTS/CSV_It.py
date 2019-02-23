@@ -127,11 +127,13 @@ def main():
                         help="The location of the date within your filename.  This will be extracted using regex techniques. ")
     parser.add_argument('--BandNum', type=str, default='',
                         help="The location of the band number or name in your file.  This will be extracted using regex techniques. ")
+    parser.add_argument('--output_dir', type=str, default=directory,
+                        help="Default is same as input_dir. ")
 
     args = parser.parse_args()
     gdf_out = CSV_It(input_dir=args.input_dir, TSdata=args.TSdata, Observations=args.Observations,
-                     Mask=args.Mask, DateLoc=args.DateLoc, BandNum=args.BandNum)
-    output = os.path.join(args.input_dir, 'Raster_List.csv')
+                     Mask=args.Mask, DateLoc=args.DateLoc, BandNum=args.BandNum, output_dir=args.output_dir)
+    output = os.path.join(args.output_dir, 'Raster_List.csv')
     gdf_out.to_csv(output)
 
 
