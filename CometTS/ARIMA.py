@@ -265,7 +265,7 @@ def main():
 
     # Construct argument parser
     parser = argparse.ArgumentParser()
-    directory = os.path.join(os.path.abspath(os.path.dirname(__file__)), "VIIRS_Sample")
+    directory = os.path.join(os.path.abspath(os.path.dirname(__file__)), "CometTS/VIIRS_Sample")
     List = os.path.join(directory, 'San_Juan_FullStats.csv')
     ARIMA = os.path.join(directory, 'San_Juan_ARIMA_Output.csv')
 
@@ -279,7 +279,7 @@ def main():
     parser.add_argument('--CutoffDate', type=str, default="2017/08/15",
                         help="Default is 2017/08/15. Format YYYY/MM/DD. Split data into a before and after event, i.e. a Hurricane. If no event simply set as last date in dataset, or a middle date. Ensure you have at least 14 months of data to pull out an historical trend")
     parser.add_argument('--Uncertainty', type=int, default=2,
-                        help="Multiplier for the mean absolute error from the ARIMA forecast, for shorter timeseries a greater uncertainty value is likely required so anomalies are not overly flagged.")
+                        help="Default is 2. Multiplier for the mean absolute error from the ARIMA forecast, for shorter time series a greater uncertainty value is likely required so anomalies are not overly flagged.  For long time series set equal to 1. User discretion advised.")
     args = parser.parse_args()
 
     calc_TS_Trends(args.CometTSOutputCSV, args.ARIMA_CSV, args.CMA_Val, args.CutoffDate, args.Uncertainty)
