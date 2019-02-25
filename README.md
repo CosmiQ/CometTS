@@ -59,6 +59,7 @@ git clone https://github.com/CosmiQ/CometTS.git
 cd CometTS
 conda env create -f environment.yml
 source activate CometTS
+pip install CometTS
 ```
 
 ### Dependencies
