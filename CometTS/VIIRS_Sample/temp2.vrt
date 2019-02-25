@@ -1,0 +1,27 @@
+<VRTDataset rasterXSize="68" rasterYSize="36">
+  <SRS>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4326"]]</SRS>
+  <GeoTransform> -6.6231249089849982e+01,  4.1666667000000322e-03,  0.0000000000000000e+00,  1.8477082881149997e+01,  0.0000000000000000e+00, -4.1666666999999923e-03</GeoTransform>
+  <Metadata>
+    <MDI key="AREA_OR_POINT">Area</MDI>
+    <MDI key="TIFFTAG_DATETIME">2018:05:09 14:32:56</MDI>
+    <MDI key="TIFFTAG_DOCUMENTNAME">./tiles/SVDNB_npp_20180401-20180430_75N180W_vcmcfg_v10_c201805021400.cf_cvg.tif</MDI>
+    <MDI key="TIFFTAG_IMAGEDESCRIPTION">IDL TIFF file</MDI>
+    <MDI key="TIFFTAG_RESOLUTIONUNIT">2 (pixels/inch)</MDI>
+    <MDI key="TIFFTAG_SOFTWARE">IDL 8.5.1, Exelis Visual Information Solutions, Inc., a subsidiary of Harris Corporation.</MDI>
+    <MDI key="TIFFTAG_XRESOLUTION">100</MDI>
+    <MDI key="TIFFTAG_YRESOLUTION">100</MDI>
+  </Metadata>
+  <Metadata domain="IMAGE_STRUCTURE">
+    <MDI key="INTERLEAVE">BAND</MDI>
+  </Metadata>
+  <VRTRasterBand dataType="UInt16" band="1">
+    <ColorInterp>Gray</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/Users/jshermeyer/CosmiqGit/CometTS/CometTS/VIIRS_Sample/SVDNB_npp_20180401-20180430_75N180W_vcmcfg_v10_c201805021400//SVDNB_npp_20180401-20180430_75N180W_vcmcfg_v10_c201805021400.cf_cvg_clip.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="207" RasterYSize="165" DataType="UInt16" BlockXSize="207" BlockYSize="19" />
+      <SrcRect xOff="49" yOff="10" xSize="68" ySize="36" />
+      <DstRect xOff="0" yOff="0" xSize="68" ySize="36" />
+    </SimpleSource>
+  </VRTRasterBand>
+</VRTDataset>

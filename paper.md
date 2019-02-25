@@ -37,7 +37,7 @@ The tool ingests two key components: (1) time series of overhead imagery and (2)
 
 # Acknowledgements
 
-We acknowledge contributions from Dylan George, Dave Lindenbaum, Ryan Lewis, and Adam Van Etten
+We acknowledge contributions from Dylan George, Dave Lindenbaum, Ryan Lewis, and Adam Van Etten.
 
 # References
 
