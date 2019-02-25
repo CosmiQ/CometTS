@@ -3,7 +3,9 @@
 ![Niamey Time Series Plot](ExamplePlots/Niamey.png)
 
 <p align="center">
+
 <img align="center" src="https://img.shields.io/pypi/v/cometts.svg" alt="PyPI">
+<img align="center" src="https://anaconda.org/jshermeyer/cometts/badges/version.svg" alt="conda">   
 <img align="center" src="https://travis-ci.com/jshermeyer/CometTS.svg?branch=master" alt="build">
 <img align="center" src="https://img.shields.io/github/license/jshermeyer/cometts.svg" alt="license">
 <img align="center" src="https://img.shields.io/docker/build/jss5102/cometts.svg" alt="docker">
@@ -157,4 +159,4 @@ See [LICENSE](./LICENSE).
 ## Traffic
 ![GitHub](https://img.shields.io/github/downloads/cosmiq/cometts/total.svg)
 ![PyPI](https://img.shields.io/pypi/dm/cometts.svg)
-![Conda](https://img.shields.io/conda/dn/conda-forge/cometts.svg)
+![Conda](https://anaconda.org/jshermeyer/cometts/badges/downloads.svg)
