@@ -46,9 +46,9 @@ pip installs may fail on macs with python3 as GDAL is finicky.  Use some of the 
 ### Docker
 ```
 docker pull jss5102/cometts
-docker run -it -v /path/to/share:/path/to/share --name cometts jss5102/cometts /bin/bash 
-# -v tag shares path to data with docker container
-CometTS -h  #Test if it installed!
+cd CometTS
+docker build .
+docker start CometTS
 ```
 
 ### Conda
@@ -178,7 +178,7 @@ Once finished, the statistical data will be output in a .csv format and will all
 
 ![UI](ExamplePlots/ARIMA.png)
 
-CometTS has expanded its functionality and now uses auto-regressive integrated moving average (ARIMA) analysis to detect anomalies in a time-series of data.  We have a built in function to calculate this for you automatically.
+CometTS has expanded its functionality and now uses auto-regressive integrated moving average (ARIMA) analysis to detect anomalies in a time-series of data.  We have a built in function to calculate this for you automatically.  In this figure we display the mean observed brightness level in San Juan in black and red dots, the number of observations caputured by the VIIRS satellite for the month in blue, and a few forecasts.  The forecasts use any observations before 8-15-2017 to calulate trends using ARIMA and linear analysis, and then apply these forecasts after this date to display where we expect brightness levels to be.  We then calculate the mean absolute error from the ARIMA trend before our date in question (8/15/2017) and multiply it by two to extend our error bars a bit (dark grey area).  We then can automatically flag observations as anamolies (red) if areas are brighter or darker than they should be. 
 
 #### CLI
 ARIMA must be run from the command line.
