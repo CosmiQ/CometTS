@@ -274,7 +274,7 @@ def main():
                         help="Enter CSV output from CometTS script, as input for ARIMA, default: " + List)
     parser.add_argument('--ARIMA_CSV', type=str, default=ARIMA,
                         help="Enter ARIMA CSV output name: " + ARIMA)
-    parser.add_argument('--CMA_Val', type=str, default=3,
+    parser.add_argument('--CMA_Val', type=int, default=3,
                         help="Default is 3. Centered Moving Average Value for ARIMA, set to an odd number >=3")
     parser.add_argument('--CutoffDate', type=str, default="2017/08/15",
                         help="Default is 2017/08/15. Format YYYY/MM/DD. Split data into a before and after event, i.e. a Hurricane. If no event simply set as last date in dataset, or a middle date. Ensure you have at least 14 months of data to pull out an historical trend")
