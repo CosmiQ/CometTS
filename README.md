@@ -46,7 +46,8 @@ pip installs may fail on macs with python3 as GDAL is finicky.  Use some of the 
 ### Docker
 ```
 docker pull jss5102/cometts
-docker run -i -t jss5102/cometts /bin/bash
+docker run -it -v /path/to/share:/path/to/share --name cometts jss5102/cometts /bin/bash 
+# -v tag shares path to data with docker container
 CometTS -h  #Test if it installed!
 ```
 
