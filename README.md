@@ -257,6 +257,4 @@ Interested in proposing a change, fixing a bug, or asking for help? Check out th
 See [LICENSE](./LICENSE).
 
 ## Traffic
-![GitHub](https://img.shields.io/github/downloads/cosmiq/cometts/total.svg)
 ![PyPI](https://img.shields.io/pypi/dm/cometts.svg)
-![Conda](https://anaconda.org/jshermeyer/cometts/badges/downloads.svg)
