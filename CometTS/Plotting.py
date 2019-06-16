@@ -86,8 +86,7 @@ def run_plot(
         # Set the min_count value as a value from 0 to 1 (0 to 100%)
         ax.set_ylim([ymin, ymax])
 
-        # This will filter out observations where over n% of a polygon is
-        # masked out
+        # This will filter out observations where over n% of a polygon is masked out
         if min_count > 0:
             z = gdf3['count']
             zmax = gdf3['count'].max()
@@ -110,10 +109,6 @@ def run_plot(
             color='#00C5B0',
             alpha=y_val_alpha)
 
-        # plot running mean regression line
-        # RM=(y.rolling(window=6, center=True, min_periods=2).median())
-        # ax.plot(xdate, RM, '-',label="Moving Median", alpha=y_val_alpha)
-
         # Gaussian smoothed plot
         b = gaussian(6, 2)
         ga = filters.convolve1d(y, b / b.sum(), mode="reflect")
@@ -134,7 +129,6 @@ def run_plot(
             s=50,
             color='black',
             alpha=scatter_alpha)
-        # ax.scatter(xdate, y2, label="Mean", s=50, color='red',alpha=scatter_alpha, marker='x')
 
         # if desired, plot error band
         plt.fill_between(
@@ -168,13 +162,6 @@ def run_plot(
             ax.xaxis.set_minor_locator(months)
 
             plt.rc('xtick', labelsize=12)
-
-            # ax.set_xticks(xdate)
-            # ax.set_xticklabels(x, rotation=50, fontsize=10)
-            # ax.tick_params(axis='x', which='major', pad=xticklabel_pad)
-
-            # ax.xaxis.set_major_formatter(dateformat)
-            # ax.set_xlim(datetime.date(settings.plot['x_min'], 1, 1),datetime.date(settings.plot['x_max'], 12, 31))
 
         if show_grid:
             ax.grid(
@@ -227,8 +214,6 @@ def run_plot_arima(
         fig, ax = plt.subplots(figsize=figsize)
         gdf3 = ARIMA_GDF[(ARIMA_GDF.ID == item)]
         title = title_label
-        # gdf3 = gdf3.sort_values(['date'])
-        # gdf3 = timeseries_trend(gdf3, CMA_Val=5, CutoffDate="2017/08/31")
         gdf3 = gdf3.sort_values(['date'])
         x = gdf3['date']
         xdate = x.astype('O')
@@ -245,11 +230,6 @@ def run_plot_arima(
                 count = gdf3['observations']
             err_plus = gdf3['SeasonalError_Pos']
             err_minus = gdf3['SeasonalError_Neg']
-            # Set the min_count value as a value from 0 to 1 (0 to 100%)
-            # ax.set_ylim([ymin,ymax])
-
-            # This will filter out observations where over n% of a polygon is
-            # masked out
             if min_count > 0:
                 z = gdf3['count']
                 zmax = gdf3['count'].max()
@@ -262,9 +242,6 @@ def run_plot_arima(
                 err_minus = err_minus[z >= min_count]
 
             if len(xdate) == len(gdf3['Trend']):
-                # plot regression line, if desired
-                # idx = np.isfinite(xdate) & np.isfinite(y)
-                # p2 = np.poly1d(np.polyfit(xdate[idx], y[idx], 1))
                 ax.plot(
                     xdate,
                     gdf3['Trend'],
@@ -272,11 +249,6 @@ def run_plot_arima(
                     label="Linear Forecast",
                     color='#00C5B0',
                     alpha=y_val_alpha)
-
-                # plot running mean regression line
-                # RM=(y.rolling(window=6,center=True, min_periods=2).median())
-                # ax.plot(xdate, RM, '-',label="Moving Median", alpha=y_val_alpha)
-
                 # Seasonal Forecast
                 T = interpolate_gaps(T, limit=3)
                 ax.plot(
@@ -302,9 +274,6 @@ def run_plot_arima(
                     s=50,
                     color='red',
                     alpha=scatter_alpha)
-                # ax.scatter(xdate, y2, label="Mean", s=50, color='red',alpha=scatter_alpha,marker='x')
-
-                # if desired, plot error band
                 plt.fill_between(
                     xdate,
                     err_plus,
@@ -336,13 +305,6 @@ def run_plot_arima(
                     ax.xaxis.set_minor_locator(months)
 
                     plt.rc('xtick', labelsize=12)
-
-                    # ax.set_xticks(xdate)
-                    # ax.set_xticklabels(x, rotation=50, fontsize=10)
-                    # ax.tick_params(axis='x', which='major', pad=xticklabel_pad)
-
-                    # ax.xaxis.set_major_formatter(dateformat)
-                    # ax.set_xlim(datetime.date(settings.plot['x_min'], 1, 1),datetime.date(settings.plot['x_max'], 12, 31))
 
                 if show_grid:
                     ax.grid(
@@ -411,11 +373,8 @@ def run_dual_plot(
             count2 = gdf4['observations']
         err_plus2 = gdf4['percentile_75']
         err_minus2 = gdf4['percentile_25']
-        # Set the min_count value as a value from 0 to 1 (0 to 100%)
         ax.set_ylim([ymin, ymax])
 
-        # This will filter out observations where over n% of a polygon is
-        # masked out
         if min_count > 0:
             z = gdf3['count']
             zmax = gdf3['count'].max()
@@ -435,10 +394,6 @@ def run_dual_plot(
                 count2 = count2[z2 >= min_count]
             err_plus2 = err_plus2[z2 >= min_count]
             err_minus2 = err_minus2[z2 >= min_count]
-
-        # plot running mean regression line
-        # RM=(y.rolling(window=6, center=True, min_periods=2).median())
-        # ax.plot(xdate, RM, '-',label="Moving Median", alpha=y_val_alpha)
 
         # Gaussian smoothed plot
         b = gaussian(6, 2)
@@ -500,10 +455,6 @@ def run_dual_plot(
             label="Linear Regression_2",
             color='#4B97C8',
             alpha=y_val_alpha)
-
-        # if desired, plot error band
-        # plt.fill_between(xdate, err_plus, err_minus, alpha=error_alpha, color='black', label="25th to 75th %")
-        # plt.fill_between(xdate, err_plus2, err_minus2, alpha=error_alpha, color='black', label="25th to 75th %")
 
         ax.set_ylabel(y_label)
         ax.set_xlabel(x_label)
@@ -596,11 +547,8 @@ def run_tri_plot(
             count3 = gdf5['observations']
         err_plus3 = gdf5['percentile_75']
         err_minus3 = gdf5['percentile_25']
-        # Set the min_count value as a value from 0 to 1 (0 to 100%)
         ax.set_ylim([ymin, ymax])
 
-        # This will filter out observations where over n% of a polygon is
-        # masked out
         if min_count > 0:
             z = gdf3['count']
             zmax = gdf3['count'].max()
@@ -720,10 +668,6 @@ def run_tri_plot(
             label="Linear NIR",
             color='#4B97C8',
             alpha=y_val_alpha)
-
-        # if desired, plot error band
-        # plt.fill_between(xdate, err_plus, err_minus, alpha=error_alpha, color='black', label="25th to 75th %")
-        # plt.fill_between(xdate, err_plus2, err_minus2, alpha=error_alpha, color='black', label="25th to 75th %")
 
         ax.set_ylabel(y_label)
         ax.set_xlabel(x_label)

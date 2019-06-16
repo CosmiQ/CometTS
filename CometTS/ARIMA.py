@@ -7,8 +7,6 @@ import seaborn as sns
 import argparse
 import os
 sns.set(color_codes=True)
-# Functions for a seasonal auto-regressive integrated moving average analysis
-# using CometTS on a time series of satellite imagery.
 
 
 def timeseries_trend(gdf3, CMA_Val=3, CutoffDate="2017/08/31", Uncertainty=2):
@@ -58,13 +56,10 @@ def timeseries_trend(gdf3, CMA_Val=3, CutoffDate="2017/08/31", Uncertainty=2):
     gdf4 = gdf3.loc[gdf3['xdate'] <= xcutoff]
     gdf3 = gdf3.sort_values(['date'])
     gdf4 = gdf4.sort_values(['date'])
-    # print(gdf4)
-    # print(gdf3)
     # Start ARIMA
     y = gdf4['mean']
     gdf4['CMA'] = y.rolling(window=CMA_Val, center=True).mean()
     gdf4['Div'] = gdf4['mean'] / gdf4['CMA']
-    # print(gdf4['Div'])
     f = gdf4.groupby(['Month'])['Div'].mean()
     f = pd.DataFrame({'Month': f.index, 'SeasonalTrend': f.values})
     gdf4 = gdf4.merge(f, on='Month')
@@ -89,9 +84,6 @@ def timeseries_trend(gdf3, CMA_Val=3, CutoffDate="2017/08/31", Uncertainty=2):
         Pos_Anom = gdf3['mean'] > gdf3['SeasonalError_Pos']
         gdf5 = gdf3.where(Neg_Anom | Pos_Anom)
         gdf3['Anomaly'] = gdf5['mean']
-        # print(gdf3['Anomaly'])
-
-        # print(gdf3['Anomaly'])
         return gdf3
     else:
         return gdf3
