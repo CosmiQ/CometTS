@@ -7,7 +7,7 @@ import pandas as pd
 """Pytest evaluations.  These only test the single band processing,
 Landsat expansion pack will not include pytesting, if something breaks in this case please open an issueself.
 ARIMA testing will be added after expanding functionality.
-No plotting testing included, do your own damn plotting if you have a problem."""
+No plotting testing included."""
 data_dir = os.path.dirname(__file__)
 os.chdir(data_dir)
 os.chdir("..")
