@@ -107,9 +107,9 @@ The process works by first iterating through the folder structure and creating a
 #### CLI
 
 ```
-CometTS.CSV_It -h
+CometTS.csv_it -h
 
-usage: CometTS.CSV_It [-h] [--input_dir INPUT_DIR] [--TSdata TSDATA]
+usage: CometTS.csv_it [-h] [--input_dir INPUT_DIR] [--TSdata TSDATA]
                       [--Observations OBSERVATIONS] [--Mask MASK]
                       [--DateLoc DATELOC] [--BandNum BANDNUM]
                       [--output_dir OUTPUT_DIR]
@@ -162,7 +162,7 @@ usage: CometTS [-h] [--input_csv INPUT_CSV] [--zonalpoly ZONALPOLY]
 #### Jupyter Notebook
 Open the Comet Time series Visualizer Notebook and run the top cell. Enter the location to your .csv that you created above, then to the path where your polygonised area of interest (AOI)  features are stored. Select if you have mask data you would like to use as well by checking or unchecking the checkbox.
 
-The program assumes that your mask pixel value equals 0. You can modify this in the "Mask_It" function if your mask band has multiple values you would like to mask out, or simply a different value than 0. Additionally you should specify the no data value for your time series data. Landsat imagery has a no data value of -9999, and any negative value for VIIRS data is an acceptable no data value.
+The program assumes that your mask pixel value equals 0. You can modify this in the "mask_imagery" function if your mask band has multiple values you would like to mask out, or simply a different value than 0. Additionally you should specify the no data value for your time series data. Landsat imagery has a no data value of -9999, and any negative value for VIIRS data is an acceptable no data value.
 
 When your paths are set, click the “Execute…” button. This will then create the relevant statistics over time by iterating through your rasters. The amount of time this will take will depending upon the number of rasters and different AOIs you are analyzing at one time.
 

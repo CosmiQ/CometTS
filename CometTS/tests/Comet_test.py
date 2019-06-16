@@ -1,7 +1,7 @@
 import os
-from CometTS.CometTS import Process_imagery
-from CometTS.CSV_It import CSV_It
-from CometTS.ARIMA import calc_TS_Trends
+from CometTS.CometTS import run_comet
+from CometTS.csv_it import csv_it
+from CometTS.ARIMA import run_arima
 import pandas as pd
 
 """Pytest evaluations.  These only test the single band processing,
@@ -16,10 +16,10 @@ print(data_dir)
 
 
 class TestEvalBase(object):
-    def test_CSV_It(self):
+    def test_csv_it(self):
         # data_dir = os.path.join(os.getcwd(), "VIIRS_Sample")
-        """Test instantiation of CSV_It.  Will also test get_extent"""
-        base_instance = CSV_It(input_dir=data_dir, TSdata="S*rade9*.tif", Observations="S*cvg*.tif", Mask="S*cvg*.tif", DateLoc="10:18", BandNum="")
+        """Test instantiation of csv_it.  Will also test get_extent"""
+        base_instance = csv_it(input_dir=data_dir, TSdata="S*rade9*.tif", Observations="S*cvg*.tif", Mask="S*cvg*.tif", DateLoc="10:18", BandNum="")
         output = os.path.join(data_dir, 'Test_Raster_List2.csv')
         base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_Raster_List2.csv"))
@@ -40,12 +40,12 @@ class TestEvalBase(object):
         pd.testing.assert_frame_equal(base_instance.reset_index(drop=True), gdf.reset_index(drop=True))
         # assert gdf['extent'].equals(base_instance['extent'])
 
-    def test_Process_imagery(self):
+    def test_run_comet(self):
         # data_dir = os.path.join(os.getcwd(), "VIIRS_Sample")
         print(data_dir)
-        """Test instantiation of Process_imagery.
-        This test will hit all core functions including Do_Zonal_Stats, Get_Num_Obs, and Mask_it"""
-        base_instance = Process_imagery(os.path.join(data_dir, "Test_Raster_List2.csv"), os.path.join(data_dir, "San_Juan.shp"), -1, 0, maskit=True)
+        """Test instantiation of run_comet.
+        This test will hit all core functions including calculate_zonal_stats, get_num_obs, and mask_imagery"""
+        base_instance = run_comet(os.path.join(data_dir, "Test_Raster_List2.csv"), os.path.join(data_dir, "San_Juan.shp"), -1, 0, maskit=True)
         output = os.path.join(data_dir, 'Test_San_Juan_FullStats2.csv')
         base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_FullStats2.csv"))
@@ -69,7 +69,7 @@ class TestEvalBase(object):
     def test_ARIMA(self):
         # data_dir = os.path.join(os.getcwd(), "VIIRS_Sample")
         """Test instantiation of ARIMA Functions."""
-        calc_TS_Trends(os.path.join(data_dir, "Test_San_Juan_FullStats2.csv"), os.path.join(data_dir, "Test_San_Juan_ARIMA_Output2.csv"), 3, "2017/08/15", 2)
+        run_arima(os.path.join(data_dir, "Test_San_Juan_FullStats2.csv"), os.path.join(data_dir, "Test_San_Juan_ARIMA_Output2.csv"), 3, "2017/08/15", 2)
         #output = os.path.join(data_dir, 'Test_San_Juan_FullStats2.csv')
         #base_instance.to_csv(output)
         base_instance = pd.read_csv(os.path.join(data_dir, "Test_San_Juan_ARIMA_Output2.csv"))

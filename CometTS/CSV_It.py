@@ -7,13 +7,49 @@ from fnmatch import fnmatch
 from CometTS.CometTS import get_extent
 import argparse
 
-def CSV_It(
+
+def csv_it(
         input_dir="./VIIRS_Sample",
         TSdata="S*rade9.tif",
         Observations="",
         Mask="",
         DateLoc="10:18",
         BandNum=""):
+    """Document and index your time series of raster imagery, masks, and potentially
+    observation data.
+
+    Arguments
+    ---------
+    input_dir : str
+        The specific path to the directory containing your raster data. Each image
+        and ancillary data should be stored in uniquely named subdirs.
+    TSdata : str
+        A search term to identify which images the actual images to use for our
+        time series analyis. Can and should include a wildcard flag such as *.
+    Observations : str
+        If working with monthly or other composite data, the number of observations
+        per period of observation may be stored in a separate raster image.
+        Passing a search term to identify which files are observation images.
+        Can and should include a wildcard flag such as *.
+    Mask : str
+        Identiy which files are masks that remove anomalies from the imagery.
+        Passing a search term to identify which files are mask images.
+        Can and should include a wildcard flag such as *.
+    DateLoc : str
+        Should be in the format int:int. This is used to tell where the date
+        information is stored in each filename string.  Typical python index
+        format.
+    BandNum : int or str
+        If there are multiple bands in the dataset and you are only interested
+        in a specific one that is stored in a filename, pass that string or value
+        here.
+
+    Returns
+    -------
+    gdf : a :class:`geopandas.geodataframe` that contains the fully documented
+    directory structure of all of your timeseries data as well as any ancilary
+    files of interest.  Also outputs a CSV documenting all of this.
+    """
     # Ensuring the user entered everything properly
     input_dir = input_dir.strip()
     TSdata = TSdata.strip()
@@ -107,10 +143,126 @@ def CSV_It(
     gdf = gpd.GeoDataFrame(rasterList)
     return gdf
 
+
+def ls_csv_it(
+        input_dir,
+        TSdata="L*.tif",
+        Mask="",
+        DateLoc="10:18",
+        Band="BLUE"):
+    """Document and index your time series of raster imagery, and masks. Used
+    specifically for Landsat imagery.
+
+    Arguments
+    ---------
+    input_dir : str
+        The specific path to the directory containing your raster data. Each image
+        and ancillary data should be stored in uniquely named subdirs.
+    TSdata : str
+        A search term to identify which images the actual images to use for our
+        time series analyis. Can and should include a wildcard flag such as *.
+    Mask : str
+        Identiy which files are masks that remove anomalies from the imagery.
+        Passing a search term to identify which files are mask images.
+        Can and should include a wildcard flag such as *.
+    DateLoc : str
+        Should be in the format int:int. This is used to tell where the date
+        information is stored in each filename string.  Typical python index
+        format.
+    Band : str
+        Which band of interest you are intersted in plotting.  If interested in
+        plotting multiple bands at once, this function must be run interatively.
+        Options are: COASTAL, BLUE, GREEN, RED, NIR, SWIR1, SWIR2
+
+    Returns
+    -------
+    gdf : a :class:`geopandas.geodataframe` that contains the fully documented
+    directory structure of all of your timeseries data as well as any ancilary
+    files of interest.  Also outputs a CSV documenting all of this.
+    """
+    # Ensuring the user entered everything properly
+    input_dir = input_dir.strip()
+    TSdata = TSdata.strip()
+    Mask = Mask.strip()
+    DateLoc = DateLoc.strip()
+    Band = Band.strip()
+
+    if len(TSdata) > 0:
+        print("Pattern:", TSdata)
+    else:
+        print("No pattern defined, this is a requirement")
+        exit()
+    if len(DateLoc) > 0:
+        print("Date Location in filename:", DateLoc)
+    else:
+        print("No date pattern entered, this is a requirement")
+        exit()
+
+    if len(Band) > 0:
+        print("Band of interest:", Band)
+        if Band == "COASTAL":
+            TSdata = ["LC08*band1.tif"]
+        if Band == "BLUE":
+            TSdata = ['LE07*band1.tif', 'LT05*band1.tif', 'LC08*band2.tif']
+        if Band == "GREEN":
+            TSdata = ['LE07*band2.tif', 'LT05*band2.tif', 'LC08*band3.tif']
+        if Band == "RED":
+            TSdata = ['LE07*band3.tif', 'LT05*band3.tif', 'LC08*band4.tif']
+        if Band == "NIR":
+            TSdata = ['LE07*band4.tif', 'LT05*band4.tif', 'LC08*band5.tif']
+        if Band == "SWIR1":
+            TSdata = ['LE07*band5.tif', 'LT05*band5.tif', 'LC08*band6.tif']
+        if Band == "SWIR2":
+            TSdata = ['LE07*band7.tif', 'LT05*band7.tif', 'LC08*band7.tif']
+    else:
+        print("No band entered, this is recommended for Landsat, unless you are working with an index like NDVI")
+        print("Options are: COASTAL, BLUE, GREEN, RED, NIR, SWIR1, SWIR2")
+        TSdata = [TSdata]
+
+    if len(Mask) > 0:
+        print("Mask band pattern:", Mask)
+    else:
+        print("No mask band entered")
+
+    os.chdir(input_dir)
+    # Identify all subdirs that contain our raster data
+    input_subdirs = glob.glob('*/')
+    print(len(input_subdirs))
+
+    rasterList = []
+    DateLoc = DateLoc.split(":")
+
+    for directory in tqdm(input_subdirs):
+        os.chdir(directory)
+        # Find our primary rasters of interest
+        FilePattern = []
+        for item in TSdata:
+            FilePattern.extend(glob.glob(item))
+        for raster in FilePattern:
+            statout = [{}]
+            statout[0]['File'] = input_dir + '/' + directory + '/' + raster
+            rasterExtent = get_extent(raster)
+            statout[0]['extent'] = rasterExtent
+            date = raster[int(DateLoc[0]):int(DateLoc[1])]
+            statout[0]['date'] = pd.to_datetime(
+                date, infer_datetime_format=True)
+            statout[0]['obs'] = 0
+            statout[0]['TS_Data'] = 1
+            if len(Mask) > 0:
+                mask = glob.glob(Mask)[0]
+                statout[0]['Mask'] = input_dir + '/' + directory + '/' + mask
+            rasterList.append(statout[0])
+
+        os.chdir(input_dir)
+
+    gdf = gpd.GeoDataFrame(rasterList)
+    return gdf
+
+
 ###############################################################################
 def main():
 
-    ### Construct argument parser
+    # Construct argument parser
     parser = argparse.ArgumentParser()
     directory = os.path.join(os.path.abspath(os.path.dirname(__file__)), "VIIRS_Sample")
 
@@ -131,7 +283,7 @@ def main():
                         help="Default is same as input_dir. ")
 
     args = parser.parse_args()
-    gdf_out = CSV_It(input_dir=args.input_dir, TSdata=args.TSdata, Observations=args.Observations,
+    gdf_out = csv_it(input_dir=args.input_dir, TSdata=args.TSdata, Observations=args.Observations,
                      Mask=args.Mask, DateLoc=args.DateLoc, BandNum=args.BandNum)
     output = os.path.join(args.output_dir, 'Raster_List.csv')
     gdf_out.to_csv(output)
