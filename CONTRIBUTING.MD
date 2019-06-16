@@ -8,9 +8,18 @@
 
 #### **Did you write a patch that fixes a bug?**
 
-* Open a new GitHub pull request with the patch.
+* Create a commit
+
+* Open a new GitHub pull request with the patch to the dev branch.
 
 * Ensure the description clearly describes the problem and solution. Include the relevant issue number if applicable.
+
+* Optionally download, and install pytest for python. Write a pytest to verify that your enhancement does what it is expected to do. Furthermore, ensure that your enhancement does not break any other functionality.
+
+* Ensure that the travis builds pass for both 2.7 and 3.6.
+
+* Ping @jshermeyer to merge the pull request to dev and delete the commit.
+
 
 #### **Do you intend to add a new feature or change an existing one?**
 
