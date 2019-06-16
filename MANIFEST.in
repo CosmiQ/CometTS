@@ -1,0 +1,6 @@
+include *.txt
+include *.md
+include CometTS/VIIRS_Sample/*
+include CometTS/VIIRS_Sample/*/*
+include CometTS/tests/*
+include CometTS/Landsat_Expansion_Docs_HelperScripts/*
