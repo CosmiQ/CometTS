@@ -9,7 +9,7 @@
 <img align="center" src="https://travis-ci.com/jshermeyer/CometTS.svg?branch=master" alt="build">
 <img align="center" src="https://img.shields.io/github/license/jshermeyer/cometts.svg" alt="license">
 <img align="center" src="https://img.shields.io/docker/build/cosmiqworks/cw-eval.svg" alt="docker">
-<a href="https://codecov.io/gh/jshermeyer/cometts"><img align="center" src="https://codecov.io/gh/jshermeyer/cometts/branch/master/graph/badge.svg" /></a>
+<a href="https://codecov.io/gh/cosmiq/cometts"><img align="center" src="https://codecov.io/gh/cosmiq/cometts/branch/master/graph/badge.svg" /></a>
 </p>
 
 - [Installation Instructions](#installation-instructions)
