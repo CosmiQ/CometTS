@@ -1,0 +1,2 @@
+ignore:
+  - "CometTS/Plotting.py"  # ignore plotting functions which cannot be tested.
