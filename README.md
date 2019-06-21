@@ -26,7 +26,7 @@ Comet Time Series (CometTS) is an open source tool coded in python including jup
 3. Analyze your data using:
    - [CometTS](https://github.com/CosmiQ/CometTS/blob/master/CometTS/CometTS.py) for trend analysis  (optionally, mask unwanted clouds and other features with [`--maskit` option](https://github.com/CosmiQ/CometTS/search?l=Python&q=--maskit))
    - or [CometTS.ARIMA](https://github.com/CosmiQ/CometTS/blob/master/CometTS/ARIMA.py) for averaging and anomaly detection
-4. Plot the results using [the plotting notebooks](https://github.com/CosmiQ/CometTS/blob/master/Notebooks/Plot_Results.ipynb)
+4. Plot the results using [the plotting notebook](https://github.com/CosmiQ/CometTS/blob/master/Notebooks/Plot_Results.ipynb)
 
 
 ## Installation
