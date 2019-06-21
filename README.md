@@ -19,9 +19,9 @@
 
 
 ## Base Functionality
-Comet Time Series (CometTS) is an open source tool coded in python including jupyter notebooks and command line utility that enables users to visualize or extract relevant statistics from any time series of overhead imagery within a specific area. To use CometTS, you must define your area of interest, provide a CSV file documenting how your imagery is organized, and then run one of the CometTS analysis tools. This usually takes the following steps
+Comet Time Series (``CometTS``) is an open source tool coded in python including jupyter notebooks and command line utility that enables users to visualize or extract relevant statistics from [almost any](https://gdal.org/drivers/raster/index.html) format time series of overhead imagery within a specific region of interest (ROI. To use CometTS, you must define your ROI, provide a CSV file documenting how your imagery is organized, and then run one of the CometTS analysis tools. This usually takes the following steps
 
-1. Outline and download your AOI with a service like [geojson.io](www.geojson.io)
+1. Outline and download your ROI with a service like [geojson.io](www.geojson.io)
 2. Organize your imagery and document it with the [CometTS.CSV_It tool](https://github.com/CosmiQ/CometTS/blob/master/CometTS/CSV_It.py)
 3. Analyze your data using:
    - [CometTS](https://github.com/CosmiQ/CometTS/blob/master/CometTS/CometTS.py) for trend analysis  (optionally, mask unwanted clouds and other features with [`--maskit` option](https://github.com/CosmiQ/CometTS/search?l=Python&q=--maskit))
