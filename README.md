@@ -19,7 +19,7 @@
 
 
 ## Base Functionality
-Comet Time Series (``CometTS``) is an open source tool coded in python including jupyter notebooks and command line utility that enables users to visualize or extract relevant statistics from [almost any](https://gdal.org/drivers/raster/index.html) format time series of overhead imagery within a specific region of interest (ROI. To use ``CometTS``, you must define your ROI, provide a CSV file documenting how your imagery is organized, and then run one of the ``CometTS`` analysis tools. This usually takes the following steps
+Comet Time Series (``CometTS``) is an open source tool coded in python including jupyter notebooks and command line utility that enables users to visualize or extract relevant statistics from [almost any](https://gdal.org/drivers/raster/index.html) format time series of overhead imagery within a specific region of interest (ROI). To use ``CometTS``, you must define your ROI, provide a CSV file documenting how your imagery is organized, and then run one of the ``CometTS`` analysis tools. This usually takes the following steps
 
 1. Outline and download your ROI with a service like [geojson.io](www.geojson.io)
 2. Organize your imagery and document it with the [CometTS.CSV_It tool](https://github.com/CosmiQ/CometTS/blob/master/CometTS/CSV_It.py)
@@ -30,6 +30,8 @@ Comet Time Series (``CometTS``) is an open source tool coded in python including
 
 A full walkthrough of this functionality with example data is included in two notebooks: [CSV_Creator](Notebooks/CSV_Creator.ipynb) and [CometTS_Visualizer](Notebooks/CometTS_Visualizer.ipynb)
 
+[Supported Raster Formats](https://gdal.org/drivers/raster/index.html)
+[Supported Vector Formats](https://gdal.org/drivers/vector/index.html)
 
 ## Installation
 Python 2.7 or 3.6 are the base requirements plus several packages.  ``CometTS`` can be installed in multiple ways including conda, pip, docker, and cloning this repository.
