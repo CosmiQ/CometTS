@@ -31,6 +31,7 @@ Comet Time Series (``CometTS``) is an open source tool coded in python including
 A full walkthrough of this functionality with example data is included in two notebooks: [CSV_Creator](Notebooks/CSV_Creator.ipynb) and [CometTS_Visualizer](Notebooks/CometTS_Visualizer.ipynb)
 
 [Supported Raster Formats](https://gdal.org/drivers/raster/index.html)
+
 [Supported Vector Formats](https://gdal.org/drivers/vector/index.html)
 
 ## Installation
