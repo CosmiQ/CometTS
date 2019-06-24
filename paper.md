@@ -13,13 +13,13 @@ authors:
 affiliations:
  - name: CosmiQ Works, In-Q-Tel
    index: 1
-date: 31 July 2018
+date: 24 June 2019
 bibliography: paper.bib
 ---
 
 # Summary
 
-We have developed a tool that we called Comet Time Series (``CometTS``) that enables workflows for the analysis and visualization of a time series of satellite imagery. The tool aims to enable population estimation research, land use change detection, or natural disaster monitoring using a range of data types. ``CometTS`` provides a partially automated approach for analyzing a time series of satellite images in any user defined polygon identifying a an arbitrarily sized region of interest (ROI). The tool calculates relevant statistical quantities (e.g., measures of central tendency and variation) and provides a visualization of their changes over time (Figure 1 and Figure 2). We believe this work is novel, as presently we are not aware of any such open-source tools to evaluate and leverage a time series of satellite or potentially airborne imagery from an ROI. Furthermore, this tool makes time series satellite imagery more accessible to the data science community and removes a Geographic Information Systems (GIS) tool as a requirement for working with these data. The tool requires only a web browser, Python, and dependent packages to function. Other time series tools like TSTools[@Holden:2017] are powerful but require a GIS interface and are limited to an analysis of individual pixels rather than larger areas of interest.
+We have developed a tool that we called Comet Time Series (``CometTS``) that enables workflows for the analysis and visualization of a time series of satellite imagery for the data science and geographic communities. The tool aims to enable population estimation research, land use change detection, or natural disaster monitoring using a range of data types.  ``CometTS`` calculates relevant statistical quantities (e.g., measures of central tendency and variation) and provides a visualization of their changes over time (Figure 1 and Figure 2). ``CometTS`` builds upon previously introduced tools like TSTools[@Holden:2017], TIMESAT[@Jonsson_Eklundh:2004], and SITS[@e-sensing/sits:2018] to provide a partially automated approach for analyzing a time series of satellite images.  ``CometTS`` adds new functionality to this domain, including analysis over arbitrarily sized regions of interest (ROI) and anomaly detection across a time series of imagery. Additionally, ``CometTS`` is coded in Python, and removes the GIS requirement that is typical for such analyses.
 
 ![Figure 1](https://raw.githubusercontent.com/CosmiQ/CometTS/master/ExamplePlots/Workflow.png)
 **Fig. 1:** A four step process to analyze and visualize trends in a time series of overhead imagery.
@@ -28,19 +28,18 @@ We have developed a tool that we called Comet Time Series (``CometTS``) that ena
 ![Figure 2](https://raw.githubusercontent.com/CosmiQ/CometTS/master/ExamplePlots/Niamey.png)
 **Fig. 2:** An example output from CometTS showing variations in nighttime brighness in Niamey, Niger.  These seasonal trends can be correlated to season migration patterns in the city.
 
+The tool ingests two key components: (1) time series of overhead imagery and (2) the ROI to designate the area of interest. Beyond what is possible with a single satellite image, time series imagery enables the investigation of patterns and sequences of the spectral responses and how they change over time. ``CometTS`` output includes user-specified statistics such as mean, median, and quartiles, and the package offers masking functionality to remove clouds and snow from the area of interest. The option for anomaly detection is also included, and CometTS leverages an Auto-Regressive Integrated Moving Average (ARIMA) analysis to quantify trends and test if observations are significantly different from observed historical trends.
 
-The tool ingests two key components: (1) time series of overhead imagery and (2) the ROI to designate the area of interest. Beyond what is possible with a single satellite image, time series imagery enables the investigation of patterns and sequences of the spectral responses and how they change over time.
+Previously, ``CometTS`` has been employed to monitor electrical and infrastructure recovery in Puerto Rico following Hurricane Maria[@Shermeyer_PR:2018].  For this study, the tool was used to extract the change in average nighttime brightness for all census tracts within Puerto Rico and to infer the number of persons without power over time. Using the ARIMA analysis feature, an historical trend line was calucluated to  determine where brightness was expected to be if the hurricane had not hit. The difference between the actual observed brightness and the forecast brightness was then used to quantify electrical and infrastructure deficiencies and recovery over time.
 
-``CometTS`` produces a tabular and visual depiction of relevant statistics of spectral responses for every pixel contained within the ROI that delimits the area of interest. This operation is repeated for every image within the time series. The user can determine the statistic(s) most relevant for their analytic needs. The output is customizable by the user to produce any type or range of statistics needed. For our assessment and demonstration, we choose standard test statistics to illustrate trends and uncertainty, including median, lower quartile (25th percentile), upper quartile (75th percentile), linear regression, and a Gaussian signal filter.  Users also have the option to supply “mask” images that are sometimes distributed with satellite imagery or that can be created. These masks can be used to remove areas that contain cloud cover, cloud shadow, snow, or other anomalies that can interfere with analysis of data (Figure 3).  The source code for ``CometTS`` has been archived to Zenodo with the linked DOI: [@Shermeyer:2018]
+![Figure 3](https://raw.githubusercontent.com/CosmiQ/CometTS/master/ExamplePlots/Puerto_Rico_ARIMA.png)
 
-![Figure 3](https://raw.githubusercontent.com/CosmiQ/CometTS/master/ExamplePlots/CloudMask.png)
-
-**Fig. 3:** An example of masked clouds.  CometTS can handle masked data to ignore anomalies like cloud cover and cloud shadows.
+**Fig. 3:** A visualization of mean and one standard deviation of brightness over time in Census Tract 9509, in Yabucoa Municipio. The linear regression forecast and seasonal adjusted forecast are plotted in teal and orange respectively.
 
 
 # Acknowledgements
 
-We acknowledge contributions from Dylan George, Dave Lindenbaum, Ryan Lewis, and Adam Van Etten.
+We acknowledge contributions from Dylan George, Dave Lindenbaum, Ryan Lewis,  Adam Van Etten, Nick Weir, Zig Hampel Arias, 
 
 # References
 
