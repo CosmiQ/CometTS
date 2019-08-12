@@ -18,4 +18,4 @@ dependencies:
   - ipython
   - tqdm=4.31.1
   - scipy=1.2.0
-  - gdal=2.4.0
+  - gdal>=2.4.0
