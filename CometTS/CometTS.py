@@ -117,7 +117,7 @@ def mask_imagery(rasterin, mask, geom, NoDataValue, mask_value):
     """
 
     geom = geom.bounds
-    geom = [geom[0], geom[3], geom[2], geom[1]]
+    #geom = [geom[0], geom[3], geom[2], geom[1]]
     MRO = gdal.Translate("temp1.vrt", rasterin, projWin=geom).ReadAsArray()
     MR2 = gdal.Translate("temp2.vrt", mask, projWin=geom).ReadAsArray()
     r = rasterio.open("temp1.vrt")
