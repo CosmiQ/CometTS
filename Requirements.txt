@@ -1,7 +1,7 @@
 #Requirements
 numpy=1.15.4
 pandas=0.24.1 
-geopandas=0.4.0 
+geopandas>=0.4.0 
 rasterio>=1.0a12
 shapely=1.6.4.post2
 fiona=1.8.4 
