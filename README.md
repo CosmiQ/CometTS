@@ -5,7 +5,7 @@
 <p align="center">
 
 <img align="center" src="https://img.shields.io/pypi/v/cometts.svg" alt="PyPI">
-<img align="center" src="https://anaconda.org/jshermeyer/cometts/badges/version.svg" alt="conda">   
+<img align="center" src="https://joss.theoj.org/papers/10.21105/joss.01047/status.svg" alt="DOI badge" >
 <img align="center" src="https://travis-ci.com/jshermeyer/CometTS.svg?branch=master" alt="build">
 <img align="center" src="https://img.shields.io/github/license/jshermeyer/cometts.svg" alt="license">
 <img align="center" src="https://img.shields.io/docker/build/cosmiqworks/cw-eval.svg" alt="docker">
